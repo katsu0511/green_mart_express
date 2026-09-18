@@ -4,9 +4,22 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 
+type Product = {
+  id: number
+  categoryId: number
+  name: string
+  description: string
+  price: number
+  imageUrl: string
+  stock: number
+  createdAt: string
+  updatedAt: string
+};
+
 function App() {
   const [count, setCount] = useState(0);
   const [status, setStatus] = useState('not ok');
+  const [products, setProducts] = useState([]);
 
   const getStatus = async () => {
     const res = await fetch('http://localhost:3001/api/health');
@@ -19,9 +32,21 @@ function App() {
     }
   };
 
+  const getProducts = async () => {
+    const res = await fetch('http://localhost:3001/api/products');
+
+    if (res.ok) {
+      const data = await res.json();
+      setProducts(data);
+    } else {
+      console.error('Could not get products');
+    }
+  };
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     getStatus();
+    getProducts();
   }, []);
 
   return (
@@ -34,6 +59,19 @@ function App() {
         </div>
         <div>
           <h1>Status: {status}</h1>
+          {products.map((product: Product) => (
+            <div key={product.id}>
+              <h2>Name: {product.name}</h2>
+              <p>ID: {product.id}</p>
+              <p>Category ID: {product.categoryId}</p>
+              <p>Description: {product.description}</p>
+              <p>¥{product.price}</p>
+              <p>Image URL: {product.imageUrl}</p>
+              <p>Stock: {product.stock}</p>
+              <p>createdAt: {product.createdAt}</p>
+              <p>updatedAt: {product.updatedAt}</p>
+            </div>
+          ))}
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
