@@ -1,0 +1,98 @@
+.product-detail {
+  width: 100%;
+}
+
+.product-detail__back-link {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: var(--text-light);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.product-detail__back-link:hover {
+  color: var(--primary);
+}
+
+.product-detail__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.product-detail__image-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+}
+
+.product-detail__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.product-detail__info {
+  padding: 8px 0;
+}
+
+.product-detail__category {
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.product-detail__name {
+  margin-bottom: 16px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.product-detail__price {
+  margin-bottom: 24px;
+  color: var(--primary);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.product-detail__stock {
+  color: var(--text-light);
+  font-weight: 600;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.product-detail__description {
+  padding: 24px 0;
+}
+
+.product-detail__description h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.product-detail__description p {
+  color: var(--text-light);
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .product-detail__content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .product-detail__name {
+    font-size: 30px;
+  }
+
+  .product-detail__price {
+    font-size: 28px;
+  }
+}
