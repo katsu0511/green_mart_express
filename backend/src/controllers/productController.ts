@@ -8,12 +8,6 @@ export const getProducts = async (_req: Request, res: Response) => {
 };
 
 export const getProduct = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-
-  if (Number.isNaN(id)) {
-    return res.status(400).json({ error: 'Invalid product ID' });
-  }
-
-  const product: Product = await productService.getProduct(id);
+  const product: Product = await productService.getProduct(Number(req.params.id));
   res.status(200).json(product);
 };
