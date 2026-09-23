@@ -1,0 +1,20 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  background-color: var(--primary);
+  width: 100%;
+  height: 40px;
+  z-index: 10;
+}
+
+.footer-content {
+  color: white;
+  font-size: 20px;
+  max-width: 1280px;
+  width: 100%;
+  height: 100%;
+  line-height: 40px;
+  text-align: center;
+  padding: 0 16px;
+  margin: 0 auto;
+}
