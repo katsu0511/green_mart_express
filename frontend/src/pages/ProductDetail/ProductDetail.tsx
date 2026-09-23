@@ -1,24 +1,32 @@
 import './ProductDetail.css';
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import type { Product } from '@/types/product';
+import useModal from '@/lib/useModal';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
+  const { setErrorMessage, setDisplayErrorModal } = useModal();
 
   useEffect(() => {
     const getProduct = async () => {
-      const res = await fetch(`http://localhost:3001/api/products/${id}`);
+      const res = await fetch(`${API_BASE_URL}/api/products/${id}`);
 
       if (res.ok) {
+        const item: Product = await res.json();
+        setProduct(item);
+      } else {
         const data = await res.json();
-        setProduct(data);
+        setErrorMessage(data.error);
+        setDisplayErrorModal(true);
       }
     };
 
     getProduct();
-  }, [id]);
+  }, [id, setErrorMessage, setDisplayErrorModal]);
 
   if (!product) {
     return <p>Loading...</p>;
