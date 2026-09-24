@@ -1,0 +1,17 @@
+.page-link__element {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.page-link {
+  display: inline-block;
+  font-weight: bold;
+  color: var(--primary);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.page-link:hover {
+  opacity: 0.4;
+}
