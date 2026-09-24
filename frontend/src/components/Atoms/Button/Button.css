@@ -1,0 +1,28 @@
+.form-button {
+  display: block;
+  background-color: white;
+  color: var(--primary);
+  border: 2px var(--primary) solid;
+  border-radius: 4px;
+  width: 100px;
+  height: 40px;
+  margin: 0 auto;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.form-button__clicked {
+  background-color: var(--text-muted);
+  color: white;
+  border-color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.form-button__clicked:hover {
+  background-color: var(--text-muted);
+}
