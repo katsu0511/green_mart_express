@@ -4,6 +4,7 @@ import ThemeProviderWrapper from '@/components/Templates/ThemeProviderWrapper/Th
 import MainLayout from '@/components/Templates/MainLayout/MainLayout';
 import ProductList from '@/pages/ProductList/ProductList';
 import ProductDetail from '@/pages/ProductDetail/ProductDetail';
+import SignupPage from '@/pages/SignupPage/SignupPage';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
             <Routes>
               <Route path='/' element={<ProductList />} />
               <Route path='/products/:id' element={<ProductDetail />} />
+              <Route path='/signup' element={<SignupPage />} />
             </Routes>
           </MainLayout>
         </ThemeProviderWrapper>
