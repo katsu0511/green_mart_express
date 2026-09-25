@@ -1,5 +1,21 @@
-import prisma from '@/lib/prisma.js';
 import type { AppUser, AuthUser } from '@/types/user.js';
+import prisma from '@/lib/prisma.js';
+
+export const findUserById = (userId: number): Promise<AppUser | null> => {
+  return prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      address: true,
+      role: true,
+      createdAt: true,
+    },
+  });
+};
 
 export const findUserByEmail = (email: string): Promise<AuthUser | null> => {
   return prisma.user.findUnique({
