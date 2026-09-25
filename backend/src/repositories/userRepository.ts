@@ -14,8 +14,11 @@ export const createUser = (data: {name: string, email: string, passwordHash: str
     data,
     select: {
       id: true,
-      name: true,
       email: true,
+      name: true,
+      address: true,
+      role: true,
+      createdAt: true,
     },
   });
 };
