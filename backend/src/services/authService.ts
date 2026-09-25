@@ -1,7 +1,17 @@
 import type { AppUser, AuthUser } from '@/types/user.js';
-import { findUserByEmail, createUser } from '@/repositories/userRepository.js';
+import { findUserById, findUserByEmail, createUser } from '@/repositories/userRepository.js';
 import bcrypt from 'bcrypt';
 import { generateToken } from '@/lib/jwt.js';
+
+export const getMe = async (userId: number) => {
+  const user: AppUser | null = await findUserById(userId);
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  return user;
+};
 
 export const signup = async (name: string, email: string, password: string) => {
   const existingUser: AuthUser | null = await findUserByEmail(email);
