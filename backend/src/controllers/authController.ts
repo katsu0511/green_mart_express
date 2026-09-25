@@ -1,6 +1,11 @@
 import type { Request, Response } from 'express';
 import * as authService from '@/services/authService.js';
 
+export const getMe = async (req: Request, res: Response) => {
+  const user = await authService.getMe(req.userId);
+  res.status(200).json(user);
+};
+
 export const signup = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   const { user, token } = await authService.signup(name, email, password);
