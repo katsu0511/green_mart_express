@@ -1,3 +1,4 @@
+import './SignupPage.css';
 import { useState } from 'react';
 import useForm from '@/lib/useForm';
 import { handleSignup } from '@/lib/auth';
@@ -34,8 +35,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className='flex items-center w-full h-full'>
-      <form className='w-full' onSubmit={signup}>
+    <div className='signup-page'>
+      <form className='signup-form' onSubmit={signup}>
         <Heading title='Signup' />
         <FormInput label='Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
         <FormInput label='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
