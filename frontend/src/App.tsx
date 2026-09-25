@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ModalProviderWrapper from '@/components/Templates/ModalProviderWrapper/ModalProviderWrapper';
 import ThemeProviderWrapper from '@/components/Templates/ThemeProviderWrapper/ThemeProviderWrapper';
 import MainLayout from '@/components/Templates/MainLayout/MainLayout';
-import ProductList from '@/pages/ProductList/ProductList';
-import ProductDetail from '@/pages/ProductDetail/ProductDetail';
+import ProductList from '@/pages/ProductListPage/ProductListPage';
+import ProductDetail from '@/pages/ProductDetailPage/ProductDetailPage';
 import SignupPage from '@/pages/SignupPage/SignupPage';
 
 export default function App() {
