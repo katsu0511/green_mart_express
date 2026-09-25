@@ -6,6 +6,7 @@ export const handleSignup = async (name: string, email: string, password: string
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ name, email, password }),
   });
 
