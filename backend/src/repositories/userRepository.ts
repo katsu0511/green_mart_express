@@ -1,5 +1,6 @@
-import type { AppUser, AuthUser } from '@/types/user.js';
+import type { AppUser } from '@/types/user.js';
 import prisma from '@/lib/prisma.js';
+import type { User as AuthUser } from '@/lib/generated/prisma/client.js';
 
 export const findUserById = (userId: number): Promise<AppUser | null> => {
   return prisma.user.findUnique({
