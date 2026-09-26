@@ -1,8 +1,9 @@
 import type { Request, Response } from 'express';
+import type { AppUser } from '@/types/user.js';
 import * as authService from '@/services/authService.js';
 
 export const getMe = async (req: Request, res: Response) => {
-  const user = await authService.getMe(req.userId);
+  const user: AppUser = await authService.getMe(req.userId);
   res.status(200).json(user);
 };
 
