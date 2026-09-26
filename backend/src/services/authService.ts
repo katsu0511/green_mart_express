@@ -1,5 +1,6 @@
-import type { AppUser, AuthUser } from '@/types/user.js';
+import type { AppUser } from '@/types/user.js';
 import { findUserById, findUserByEmail, createUser } from '@/repositories/userRepository.js';
+import type { User as AuthUser } from '@/lib/generated/prisma/client.js';
 import bcrypt from 'bcrypt';
 import { generateToken } from '@/lib/jwt.js';
 
