@@ -1,5 +1,6 @@
 import type { Product } from '@/lib/generated/prisma/client.js';
 import { findProducts, findProductById } from '@/repositories/productRepository.js';
+import type { ProductWithCategory } from '@/types/product.js';
 
 export const getProducts = async (): Promise<Product[]> => {
   try {
@@ -9,8 +10,8 @@ export const getProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const getProduct = async (id: number): Promise<Product> => {
-  let product: Product | null;
+export const getProduct = async (id: number): Promise<ProductWithCategory> => {
+  let product: ProductWithCategory | null;
 
   try {
     product = await findProductById(id);

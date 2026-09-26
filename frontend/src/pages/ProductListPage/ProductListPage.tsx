@@ -1,4 +1,4 @@
-import './ProductList.css';
+import './ProductListPage.css';
 import { useState, useEffect } from 'react';
 import type { Product } from '@/types/product';
 import useModal from '@/lib/useModal';
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export default function ProductList() {
+export default function ProductListPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const { setErrorMessage, setDisplayErrorModal } = useModal();
 

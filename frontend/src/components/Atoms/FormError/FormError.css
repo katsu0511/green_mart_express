@@ -1,0 +1,6 @@
+.form-error {
+  color: var(--danger);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}

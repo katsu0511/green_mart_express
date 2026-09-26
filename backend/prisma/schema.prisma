@@ -36,7 +36,7 @@ model User {
   cartItems CartItem[] @relation("UserCartItems")
   orders    Order[]    @relation("Orders")
 
-  @@map("user")
+  @@map("users")
 }
 
 model Category {
@@ -46,7 +46,7 @@ model Category {
 
   products Product[] @relation("CategoryOfProduct")
 
-  @@map("category")
+  @@map("categories")
 }
 
 model Product {
@@ -64,7 +64,7 @@ model Product {
   cartItems  CartItem[]  @relation("ProductOfCartItem")
   orderItems OrderItem[] @relation("ProductOfOrderItem")
 
-  @@map("product")
+  @@map("products")
 }
 
 model CartItem {
@@ -76,7 +76,7 @@ model CartItem {
   product Product @relation("ProductOfCartItem", fields: [productId], references: [id], onDelete: Cascade)
 
   @@id([userId, productId], name: "cart_item_pk")
-  @@map("cartItem")
+  @@map("cartItems")
 }
 
 model Order {
@@ -91,7 +91,7 @@ model Order {
   user  User        @relation("Orders", fields: [userId], references: [id], onDelete: Cascade)
   items OrderItem[] @relation("OrderItems")
 
-  @@map("order")
+  @@map("orders")
 }
 
 model OrderItem {
@@ -105,5 +105,5 @@ model OrderItem {
   order   Order   @relation("OrderItems", fields: [orderId], references: [id], onDelete: Cascade)
 
   @@id([orderId, productId], name: "order_item_pk")
-  @@map("orderItem")
+  @@map("orderItems")
 }

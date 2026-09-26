@@ -6,6 +6,6 @@ import { productIdSchema } from '@/validations/productValidation.js';
 const router = Router();
 
 router.get('/', getProducts);
-router.get('/:id', validate(productIdSchema), getProduct);
+router.get('/:id', validate(productIdSchema, 'params'), getProduct);
 
 export default router;

@@ -1,0 +1,28 @@
+import type { AppUser } from '@/types/user.js';
+import { findUserById, findUserByEmail, createUser } from '@/repositories/userRepository.js';
+import type { User as AuthUser } from '@/lib/generated/prisma/client.js';
+import bcrypt from 'bcrypt';
+import { generateToken } from '@/lib/jwt.js';
+
+export const getMe = async (userId: number) => {
+  const user: AppUser | null = await findUserById(userId);
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  return user;
+};
+
+export const signup = async (name: string, email: string, password: string) => {
+  const existingUser: AuthUser | null = await findUserByEmail(email);
+
+  if (existingUser) {
+    throw new Error('Email is already registered');
+  }
+
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user: AppUser = await createUser({ name, email, passwordHash });
+  const token: string = generateToken(user.id);
+  return { user, token };
+};

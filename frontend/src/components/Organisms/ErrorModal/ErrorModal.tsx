@@ -1,11 +1,11 @@
 import './ErrorModal.css';
 import useModal from '@/lib/useModal';
-import { useNavigate } from 'react-router-dom';
+import useForm from '@/lib/useForm';
 import { Button } from '@mui/material';
 
 export default function ErrorModal() {
   const { errorMessage, setErrorMessage, setDisplayErrorModal } = useModal();
-  const navigate = useNavigate();
+  const { navigate } = useForm();
 
   const onBackToHome = () => {
     setDisplayErrorModal(false);

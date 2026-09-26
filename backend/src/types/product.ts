@@ -1,6 +1,7 @@
-export type Product = {
+import type { Category } from '@/lib/generated/prisma/client.js';
+
+export type ProductWithCategory = {
   id: number
-  categoryId: number
   name: string
   description: string
   price: number
@@ -8,4 +9,5 @@ export type Product = {
   stock: number
   createdAt: Date
   updatedAt: Date
+  category: Category
 };
