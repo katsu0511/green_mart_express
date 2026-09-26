@@ -1,14 +1,14 @@
 import './ProductDetailPage.css';
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import type { Product } from '@/types/product';
+import type { ProductWithCategory } from '@/types/product';
 import useModal from '@/lib/useModal';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function ProductDetailPage() {
   const { id } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<ProductWithCategory | null>(null);
   const { setErrorMessage, setDisplayErrorModal } = useModal();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function ProductDetailPage() {
       const res = await fetch(`${API_BASE_URL}/api/products/${id}`);
 
       if (res.ok) {
-        const item: Product = await res.json();
+        const item: ProductWithCategory = await res.json();
         setProduct(item);
       } else {
         const data = await res.json();
@@ -42,7 +42,7 @@ export default function ProductDetailPage() {
         </div>
 
         <div className='product-detail__info'>
-          <p className='product-detail__category'>Category ID: {product.categoryId}</p>
+          <p className='product-detail__category'>Category: {product.category.name}</p>
           <h1 className='product-detail__name'>{product.name}</h1>
           <p className='product-detail__price'>¥{product.price}</p>
           <div className='product-detail__stock'>
