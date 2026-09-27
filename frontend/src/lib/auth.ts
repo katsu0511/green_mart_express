@@ -16,6 +16,18 @@ export const handleLogin = async (email: string, password: string) => {
   }
 };
 
+export const handleLogout = async () => {
+  const res = await fetch(`${API_BASE_URL}/api/auth/logout`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    const data = await res.json();
+    return { message: data.error }
+  }
+};
+
 export const handleSignup = async (name: string, email: string, password: string) => {
   const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
     method: 'POST',
