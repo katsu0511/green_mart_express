@@ -31,7 +31,7 @@ export default function SignupPage() {
       return;
     }
 
-    navigate('/');
+    navigate('/cart');
   };
 
   return (
