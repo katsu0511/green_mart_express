@@ -10,27 +10,22 @@ export const getMe = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const { user, token } = await authService.login(email, password);
-  res
-    .cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 1000,
-    })
-    .status(200)
-    .json(user);
+  setAuthCookie(res, token);
+  res.status(200).json(user);
 };
 
 export const signup = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
   const { user, token } = await authService.signup(name, email, password);
-  res
-    .cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 1000,
-    })
-    .status(201)
-    .json(user);
+  setAuthCookie(res, token);
+  res.status(201).json(user);
+};
+
+const setAuthCookie = (res: Response, token: string) => {
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 1000,
+  });
 };
