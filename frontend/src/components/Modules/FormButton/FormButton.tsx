@@ -1,6 +1,6 @@
 import './FormButton.css';
 import FormError from '@/components/Atoms/FormError/FormError';
-import Button from '@/components/Atoms/Button/Button';
+import AtomButton from '@/components/Atoms/AtomButton/AtomButton';
 
 type Props = {
   usage: string
@@ -12,7 +12,7 @@ export default function FormButton({ usage, error, hasClicked }: Props) {
   return (
     <div className='button-element'>
       <FormError error={error} />
-      <Button usage={usage} hasClicked={hasClicked} />
+      <AtomButton usage={usage} hasClicked={hasClicked} />
     </div>
   );
 }
