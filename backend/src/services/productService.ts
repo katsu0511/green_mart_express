@@ -1,6 +1,7 @@
 import type { Product } from '@/lib/generated/prisma/client.js';
 import { findProducts, findProductById } from '@/repositories/productRepository.js';
 import type { ProductWithCategory } from '@/types/product.js';
+import { AppError } from '@/lib/appError.js';
 
 export const getProducts = async (): Promise<Product[]> => {
   try {
@@ -19,6 +20,6 @@ export const getProduct = async (id: number): Promise<ProductWithCategory> => {
     throw new Error('Failed to fetch product');
   }
 
-  if (!product) throw new Error('Product not found');
+  if (!product) throw new AppError(404, 'Product not found');
   return product;
 };
