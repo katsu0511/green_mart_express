@@ -1,5 +1,5 @@
-import './Input.css';
 import type { ChangeEvent } from 'react';
+import { TextField } from '@mui/material';
 
 type Props = {
   label: string
@@ -9,5 +9,5 @@ type Props = {
 };
 
 export default function Input({ label, type, value, onChange }: Props) {
-  return <input id={label} type={type} className='form-input' value={value} onChange={onChange} required />;
+  return <TextField id={label} label={label} type={type} value={value} variant='outlined' onChange={onChange} required />;
 }
