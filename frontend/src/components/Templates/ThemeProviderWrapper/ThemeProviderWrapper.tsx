@@ -2,6 +2,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2e7d32',
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: {
