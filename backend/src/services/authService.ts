@@ -14,6 +14,31 @@ export const getMe = async (userId: number) => {
   return user;
 };
 
+export const login = async (email: string, password: string) => {
+  const authUser: AuthUser | null = await findUserByEmail(email);
+
+  if (!authUser) {
+    throw new Error('Invalid email or password');
+  }
+
+  const isMatched = await bcrypt.compare(password, authUser.passwordHash);
+
+  if (!isMatched) {
+    throw new Error('Invalid email or password');
+  }
+
+  const appUser: AppUser = {
+    id: authUser.id,
+    email: authUser.email,
+    name: authUser.name,
+    address: authUser.address,
+    role: authUser.role,
+    createdAt: authUser.createdAt
+  };
+  const token: string = generateToken(authUser.id);
+  return { user: appUser, token };
+};
+
 export const signup = async (name: string, email: string, password: string) => {
   const existingUser: AuthUser | null = await findUserByEmail(email);
 
