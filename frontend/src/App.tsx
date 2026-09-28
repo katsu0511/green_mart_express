@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthProviderWrapper from '@/components/Templates/AuthProviderWrapper/AuthProviderWrapper';
 import ModalProviderWrapper from '@/components/Templates/ModalProviderWrapper/ModalProviderWrapper';
 import ThemeProviderWrapper from '@/components/Templates/ThemeProviderWrapper/ThemeProviderWrapper';
 import MainLayout from '@/components/Templates/MainLayout/MainLayout';
@@ -13,27 +14,29 @@ import CartPage from'@/pages/CartPage/CartPage';
 export default function App() {
   return (
     <BrowserRouter>
-      <ModalProviderWrapper>
-        <ThemeProviderWrapper>
-          <MainLayout>
-            <Routes>
+      <AuthProviderWrapper>
+        <ModalProviderWrapper>
+          <ThemeProviderWrapper>
+            <MainLayout>
+              <Routes>
 
-              <Route path='/' element={<ProductList />} />
-              <Route path='/products/:id' element={<ProductDetail />} />
+                <Route path='/' element={<ProductList />} />
+                <Route path='/products/:id' element={<ProductDetail />} />
 
-              <Route element={<RequireUnauth />}>
-                <Route path='/login' element={<LoginPage />} />
-                <Route path='/signup' element={<SignupPage />} />
-              </Route>
+                <Route element={<RequireUnauth />}>
+                  <Route path='/login' element={<LoginPage />} />
+                  <Route path='/signup' element={<SignupPage />} />
+                </Route>
 
-              <Route element={<RequireAuth />}>
-                <Route path='/cart' element={<CartPage />} />
-              </Route>
+                <Route element={<RequireAuth />}>
+                  <Route path='/cart' element={<CartPage />} />
+                </Route>
 
-            </Routes>
-          </MainLayout>
-        </ThemeProviderWrapper>
-      </ModalProviderWrapper>
+              </Routes>
+            </MainLayout>
+          </ThemeProviderWrapper>
+        </ModalProviderWrapper>
+      </AuthProviderWrapper>
     </BrowserRouter>
   );
 }

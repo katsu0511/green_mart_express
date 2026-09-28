@@ -1,6 +1,7 @@
 import './SignupPage.css';
 import { useState } from 'react';
 import useForm from '@/lib/useForm';
+import useAuth from '@/lib/useAuth';
 import { handleSignup } from '@/lib/auth';
 import Heading from '@/components/Atoms/Heading/Heading';
 import FormInput from '@/components/Modules/FormInput/FormInput';
@@ -11,6 +12,7 @@ export default function SignupPage() {
   const [name, setName] = useState<string>('');
   const [hasClicked, setHasClicked] = useState<boolean>(false);
   const { email, setEmail, password, setPassword, passwordConfirm, setPasswordConfirm, error, setError, navigate } = useForm();
+  const { refreshAuth } = useAuth();
 
   const signup = async(e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,13 +25,15 @@ export default function SignupPage() {
       return;
     }
 
-    const error = await handleSignup(name, email, passwordConfirm);
+    const error = await handleSignup(name, email, password);
 
     if (error) {
       setError(error.message);
       setHasClicked(false);
       return;
     }
+
+    await refreshAuth();
 
     navigate('/cart');
   };
