@@ -1,6 +1,7 @@
 import './LoginPage.css';
 import { useState } from 'react';
 import useForm from '@/lib/useForm';
+import useAuth from '@/lib/useAuth';
 import { handleLogin } from '@/lib/auth';
 import Heading from '@/components/Atoms/Heading/Heading';
 import FormInput from '@/components/Modules/FormInput/FormInput';
@@ -10,6 +11,7 @@ import PageLink from '@/components/Atoms/PageLink/PageLink';
 export default function LoginPage() {
   const [hasClicked, setHasClicked] = useState<boolean>(false);
   const { email, setEmail, password, setPassword, error, setError, navigate } = useForm();
+  const { refreshAuth } = useAuth();
 
   const login = async(e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,6 +25,8 @@ export default function LoginPage() {
       setHasClicked(false);
       return;
     }
+
+    await refreshAuth();
 
     navigate('/cart');
   };
