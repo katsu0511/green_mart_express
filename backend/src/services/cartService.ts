@@ -13,6 +13,6 @@ export const addCartItem = async (userId: number, productId: number, quantity: n
   try {
     return await upsertCartItem({ userId, productId, quantity });
   } catch (error) {
-    throw new Error('Failed to add cart items');
+    throw new Error('Failed to add cart item');
   }
 };
