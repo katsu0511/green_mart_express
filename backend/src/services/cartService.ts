@@ -1,9 +1,9 @@
 import type { CartItemWithDetail } from '@/types/cartItem.js';
-import { findCartItems, upsertCartItem } from '@/repositories/cartRepository.js';
+import * as cartRepository from '@/repositories/cartRepository.js';
 
 export const getCartItems = async (userId: number): Promise<CartItemWithDetail[]> => {
   try {
-    return await findCartItems(userId);
+    return await cartRepository.findCartItems(userId);
   } catch (error) {
     throw new Error('Failed to fetch cart items');
   }
@@ -11,7 +11,7 @@ export const getCartItems = async (userId: number): Promise<CartItemWithDetail[]
 
 export const addCartItem = async (userId: number, productId: number, quantity: number): Promise<CartItemWithDetail> => {
   try {
-    return await upsertCartItem({ userId, productId, quantity });
+    return await cartRepository.upsertCartItem({ userId, productId, quantity });
   } catch (error) {
     throw new Error('Failed to add cart item');
   }
