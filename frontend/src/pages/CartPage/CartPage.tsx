@@ -1,22 +1,123 @@
+import './CartPage.css';
+import { useState, useEffect } from 'react';
+import type { CartItemWithDetail } from '@/types/cartItem';
+import useModal from '@/lib/useModal';
 import useForm from '@/lib/useForm';
 import useAuth from '@/lib/useAuth';
 import { handleLogout } from '@/lib/auth';
+import Heading from '@/components/Atoms/Heading/Heading';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function CartPage() {
+  const [cartItems, setCartItems] = useState<CartItemWithDetail[]>([]);
+  const { setErrorMessage, setDisplayErrorModal } = useModal();
   const { navigate } = useForm();
-  const { clearAuth } = useAuth();
+  const { clearAuth, refreshAuth } = useAuth();
 
-  const logout = async() => {
+  const logout = async () => {
     const error = await handleLogout();
     if (error) return;
     clearAuth();
     navigate('/login');
   };
 
+  useEffect(() => {
+    const getCartItems = async () => {
+      const res = await fetch(`${API_BASE_URL}/api/cart`, {
+        credentials: 'include',
+      });
+
+      if (res.ok) {
+        const cartItemList: CartItemWithDetail[] = await res.json();
+        setCartItems(cartItemList);
+      } else if (res.status === 401) {
+        await refreshAuth();
+        navigate('/login');
+      } else {
+        const data = await res.json();
+        setErrorMessage(data.error);
+        setDisplayErrorModal(true);
+      }
+    };
+
+    getCartItems();
+  }, [refreshAuth, navigate, setErrorMessage, setDisplayErrorModal]);
+
+  const totalAmount = cartItems.reduce((total, cartItem) => total + cartItem.product.price * cartItem.quantity, 0);
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-US').format(price);
+  };
+
   return (
-    <div>
-      <p>CartPage</p>
-      <button onClick={logout}>Logout</button>
+    <div className='cart-page'>
+      <div className='cart-header'>
+        <Heading title='Shopping Cart' />
+        <button className='logout-button' onClick={logout}>Logout</button>
+      </div>
+
+      {cartItems.length === 0 ? (
+        <div className='empty-cart'>
+          <div className='empty-cart-icon'>🛒</div>
+          <h3>Your cart is empty</h3>
+          <p>Add some products to your cart and they will appear here.</p>
+          <button className='continue-shopping-button' onClick={() => navigate('/')}>Continue Shopping</button>
+        </div>
+      ) : (
+        <div className='cart-content'>
+          <section className='cart-items'>
+            <div className='cart-items-header'>
+              <span>Product</span>
+              <span>Quantity</span>
+              <span>Subtotal</span>
+            </div>
+
+            {cartItems.map(cartItem => {
+              const { product, quantity } = cartItem;
+              const subtotal = product.price * quantity;
+
+              return (
+                <div className='cart-item' key={product.id}>
+                  <div className='product-info'>
+                    <img className='product-image' src={product.imageUrl || '/no-image.png'} alt={product.name} />
+                    <div className='product-details'>
+                      <h3>{product.name}</h3>
+                      <p className='product-price'>¥{formatPrice(product.price)}</p>
+                    </div>
+                  </div>
+
+                  <div className='quantity'>
+                    <span>{quantity}</span>
+                  </div>
+
+                  <div className='subtotal'>¥{formatPrice(subtotal)}</div>
+                </div>
+              );
+            })}
+          </section>
+
+          <aside className='cart-summary'>
+            <h3>Order Summary</h3>
+
+            <div className='summary-row'>
+              <span>Items</span>
+              <span>{cartItems.length}</span>
+            </div>
+
+            <div className='summary-divider' />
+
+            <div className='summary-total'>
+              <span>Total</span>
+              <strong>¥{formatPrice(totalAmount)}</strong>
+            </div>
+
+            <button className='checkout-button'>Proceed to Checkout</button>
+
+            <button className='continue-shopping-button secondary' onClick={() => navigate('/')}>Continue Shopping</button>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
