@@ -73,10 +73,22 @@
 }
 
 .product-info {
+  min-width: 0;
+}
+
+.product-link {
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.product-link:hover {
+  opacity: 0.6;
+}
+
+.product-content {
   display: flex;
   align-items: center;
   gap: 16px;
-  min-width: 0;
 }
 
 .product-image {
