@@ -4,7 +4,6 @@ import type { CartItemWithDetail } from '@/types/cartItem';
 import useModal from '@/lib/useModal';
 import useForm from '@/lib/useForm';
 import useAuth from '@/lib/useAuth';
-import { handleLogout } from '@/lib/auth';
 import Heading from '@/components/Atoms/Heading/Heading';
 import { Link } from 'react-router-dom';
 
@@ -14,14 +13,7 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItemWithDetail[]>([]);
   const { setErrorMessage, setDisplayErrorModal } = useModal();
   const { navigate } = useForm();
-  const { clearAuth, refreshAuth } = useAuth();
-
-  const logout = async () => {
-    const error = await handleLogout();
-    if (error) return;
-    clearAuth();
-    navigate('/login');
-  };
+  const { refreshAuth } = useAuth();
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -55,7 +47,6 @@ export default function CartPage() {
     <div className='cart-page'>
       <div className='cart-header'>
         <Heading title='Shopping Cart' />
-        <button className='logout-button' onClick={logout}>Logout</button>
       </div>
 
       {cartItems.length === 0 ? (
