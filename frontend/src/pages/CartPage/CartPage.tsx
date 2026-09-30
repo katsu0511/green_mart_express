@@ -6,6 +6,7 @@ import useForm from '@/lib/useForm';
 import useAuth from '@/lib/useAuth';
 import { handleLogout } from '@/lib/auth';
 import Heading from '@/components/Atoms/Heading/Heading';
+import { Link } from 'react-router-dom';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -80,11 +81,15 @@ export default function CartPage() {
               return (
                 <div className='cart-item' key={product.id}>
                   <div className='product-info'>
-                    <img className='product-image' src={product.imageUrl || '/no-image.png'} alt={product.name} />
-                    <div className='product-details'>
-                      <h3>{product.name}</h3>
-                      <p className='product-price'>¥{formatPrice(product.price)}</p>
-                    </div>
+                    <Link to={`/products/${product.id}`} className='product-link'>
+                      <div className='product-content'>
+                        <img className='product-image' src={product.imageUrl || '/no-image.png'} alt={product.name} />
+                        <div className='product-details'>
+                          <h3>{product.name}</h3>
+                          <p className='product-price'>¥{formatPrice(product.price)}</p>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
 
                   <div className='quantity'>
