@@ -12,3 +12,9 @@ export const addCartItem = async (req: Request, res: Response) => {
   const cartItem: CartItemWithDetail = await cartService.addCartItem(req.userId, productId, quantity);
   res.status(201).json(cartItem);
 };
+
+export const deleteCartItem = async (req: Request, res: Response) => {
+  const productId = Number(req.params.productId);
+  await cartService.deleteCartItem(req.userId, productId);
+  res.status(204).send();
+};
