@@ -1,5 +1,6 @@
 import type { CartItemWithDetail } from '@/types/cartItem.js';
 import prisma from '@/lib/prisma.js';
+import type { CartItem } from '@/lib/generated/prisma/client.js';
 
 export const findCartItems = (userId: number): Promise<CartItemWithDetail[]> => {
   return prisma.cartItem.findMany({
@@ -28,4 +29,15 @@ export const upsertCartItem = (data: { userId: number, productId: number, quanti
       product: true,
     },
   });
+};
+
+export const deleteCartItem = (userId: number, productId: number): Promise<CartItem> => {
+  return prisma.cartItem.delete({
+    where: {
+      cart_item_pk: {
+        userId,
+        productId,
+      },
+    },
+  })
 };
