@@ -46,6 +46,7 @@
   background-color: var(--primary);
   width: 120px;
   height: auto;
+  box-shadow: 2px 2px 5px rgba(198, 255, 181, 0.3);
 }
 
 .header-popup__menu {
