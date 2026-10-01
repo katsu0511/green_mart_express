@@ -37,6 +37,24 @@ export default function CartPage() {
     getCartItems();
   }, [refreshAuth, navigate, setErrorMessage, setDisplayErrorModal]);
 
+  const deleteCartItem = async (productId: number) => {
+    const res = await fetch(`${API_BASE_URL}/api/cart/${productId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (res.ok) {
+      setCartItems(prev => prev.filter(cartItem => cartItem.product.id !== productId));
+    } else if (res.status === 401) {
+      await refreshAuth();
+      navigate('/login');
+    } else {
+      const data = await res.json();
+      setErrorMessage(data.error);
+      setDisplayErrorModal(true);
+    }
+  };
+
   const totalAmount = cartItems.reduce((total, cartItem) => total + cartItem.product.price * cartItem.quantity, 0);
 
   const formatPrice = (price: number) => {
@@ -63,6 +81,7 @@ export default function CartPage() {
               <span>Product</span>
               <span>Quantity</span>
               <span>Subtotal</span>
+              <span></span>
             </div>
 
             {cartItems.map(cartItem => {
@@ -88,6 +107,12 @@ export default function CartPage() {
                   </div>
 
                   <div className='subtotal'>¥{formatPrice(subtotal)}</div>
+
+                  <div className='delete'>
+                    <button className='delete-cart-button' onClick={() => deleteCartItem(product.id)} aria-label={`Remove ${product.name} from cart`}>
+                      <img src='/delete.png' alt='delete' />
+                    </button>
+                  </div>
                 </div>
               );
             })}
