@@ -39,5 +39,5 @@ export const deleteCartItem = (userId: number, productId: number): Promise<CartI
         productId,
       },
     },
-  })
+  });
 };
