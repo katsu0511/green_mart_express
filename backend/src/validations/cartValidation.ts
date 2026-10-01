@@ -5,6 +5,6 @@ export const cartAddSchema = z.object({
   quantity: z.coerce.number().int().positive(),
 });
 
-export const cartDeleteSchema = z.object({
+export const cartParamSchema = z.object({
   productId: z.coerce.number().int().positive(),
 });
