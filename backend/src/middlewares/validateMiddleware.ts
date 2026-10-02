@@ -9,7 +9,6 @@ export const validate = <T>(schema: ZodType<T>, target: 'body' | 'params' | 'que
       return res.status(400).json({ error: 'Invalid request parameters' });
     }
 
-    req.params = result.data as typeof req.params;
     next();
   };
 };
