@@ -37,6 +37,28 @@ export default function CartPage() {
     getCartItems();
   }, [refreshAuth, navigate, setErrorMessage, setDisplayErrorModal]);
 
+  const updateQuantity = async (productId: number, quantity: number) => {
+    const res = await fetch(`${API_BASE_URL}/api/cart/${productId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ quantity }),
+    });
+
+    if (res.ok) {
+      setCartItems(prev => prev.map(cartItem => cartItem.product.id === productId ? { ...cartItem, quantity } : cartItem));
+    } else if (res.status === 401) {
+      await refreshAuth();
+      navigate('/login');
+    } else {
+      const data = await res.json();
+      setErrorMessage(data.error);
+      setDisplayErrorModal(true);
+    }
+  };
+
   const deleteCartItem = async (productId: number) => {
     const res = await fetch(`${API_BASE_URL}/api/cart/${productId}`, {
       method: 'DELETE',
@@ -103,7 +125,12 @@ export default function CartPage() {
                   </div>
 
                   <div className='quantity'>
-                    <span>{quantity}</span>
+                    <select value={quantity} className='quantity-select' onChange={(e) => updateQuantity(product.id, Number(e.target.value))}>
+                      {Array.from({ length: Math.min(product.stock, 10) }, (_, i) => {
+                        const value = i + 1;
+                        return <option key={value} value={value}>{value}</option>;
+                      })}
+                    </select>
                   </div>
 
                   <div className='subtotal'>¥{formatPrice(subtotal)}</div>

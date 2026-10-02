@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import type { CartItemWithDetail } from '@/types/cartItem.js';
 import * as cartService from '@/services/cartService.js';
+import type { CartItem } from '@/lib/generated/prisma/client.js';
 
 export const getCartItems = async (req: Request, res: Response) => {
   const cartItems: CartItemWithDetail[] = await cartService.getCartItems(req.userId);
@@ -11,6 +12,13 @@ export const addCartItem = async (req: Request, res: Response) => {
   const { productId, quantity } = req.body;
   const cartItem: CartItemWithDetail = await cartService.addCartItem(req.userId, productId, quantity);
   res.status(201).json(cartItem);
+};
+
+export const updateCartItem = async (req: Request, res: Response) => {
+  const productId = Number(req.params.productId);
+  const { quantity } = req.body;
+  const cartItem: CartItem = await cartService.updateCartItem(req.userId, productId, quantity);
+  res.status(200).json(cartItem);
 };
 
 export const deleteCartItem = async (req: Request, res: Response) => {

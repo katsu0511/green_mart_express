@@ -31,6 +31,20 @@ export const upsertCartItem = (data: { userId: number, productId: number, quanti
   });
 };
 
+export const updateCartItem = (userId: number, productId: number, quantity: number): Promise<CartItem> => {
+  return prisma.cartItem.update({
+    where: {
+      cart_item_pk: {
+        userId,
+        productId,
+      },
+    },
+    data: {
+      quantity
+    }
+  });
+};
+
 export const deleteCartItem = (userId: number, productId: number): Promise<CartItem> => {
   return prisma.cartItem.delete({
     where: {
@@ -39,5 +53,5 @@ export const deleteCartItem = (userId: number, productId: number): Promise<CartI
         productId,
       },
     },
-  })
+  });
 };
