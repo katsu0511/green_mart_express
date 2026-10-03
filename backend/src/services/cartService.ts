@@ -1,8 +1,8 @@
 import type { CartItemWithDetail } from '@/types/cartItem.js';
 import * as cartRepository from '@/repositories/cartRepository.js';
+import { AppError } from '@/lib/appError.js';
 import type { CartItem } from '@/lib/generated/prisma/client.js';
 import { Prisma } from '@/lib/generated/prisma/client.js';
-import { AppError } from '@/lib/appError.js';
 
 export const getCartItems = async (userId: number): Promise<CartItemWithDetail[]> => {
   try {
@@ -14,8 +14,12 @@ export const getCartItems = async (userId: number): Promise<CartItemWithDetail[]
 
 export const addCartItem = async (userId: number, productId: number, quantity: number): Promise<CartItemWithDetail> => {
   try {
-    return await cartRepository.upsertCartItem({ userId, productId, quantity });
+    return await cartRepository.upsertCartItem(userId, productId, quantity);
   } catch (error) {
+    if (error instanceof AppError) {
+      if (error.statusCode === 404) throw new AppError(404, 'Product not found');
+      if (error.statusCode === 400) throw new AppError(400, 'Insufficient stock');
+    }
     throw new Error('Failed to add cart item');
   }
 };
