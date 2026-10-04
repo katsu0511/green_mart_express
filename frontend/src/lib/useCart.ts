@@ -28,5 +28,3 @@ export const getCartItems = async (
 };
 
 export const totalAmount = (cartItems: CartItemWithDetail[]) => cartItems.reduce((total, cartItem) => total + cartItem.product.price * cartItem.quantity, 0);
-
-export const formatPrice = (price: number) => new Intl.NumberFormat('en-US').format(price);
