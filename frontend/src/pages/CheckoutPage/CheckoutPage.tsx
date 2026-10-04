@@ -5,7 +5,7 @@ import useModal from '@/lib/useModal';
 import useForm from '@/lib/useForm';
 import useAuth from '@/lib/useAuth';
 import { getCartItems, totalAmount, formatPrice } from '@/lib/useCart';
-import type { OrderItemInfo } from '@/types/orderItem';
+import type { OrderItemInfo } from '@/types/order';
 import Heading from '@/components/Atoms/Heading/Heading';
 import { Link } from 'react-router-dom';
 
