@@ -57,6 +57,12 @@ export const checkout = (userId: number, totalAmount: number, shippingAddress: s
       }
     }
 
+    await tx.cartItem.deleteMany({
+      where: {
+        userId,
+      },
+    });
+
     return order;
   });
 };
