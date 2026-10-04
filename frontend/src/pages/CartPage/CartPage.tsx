@@ -94,7 +94,7 @@ export default function CartPage() {
           <div className='empty-cart-icon'>🛒</div>
           <h3>Your cart is empty</h3>
           <p>Add some products to your cart and they will appear here.</p>
-          <button className='continue-shopping-button' onClick={() => navigate('/')}>Continue Shopping</button>
+          <Link className='continue-shopping-button' to={'/'}>Continue Shopping</Link>
         </div>
       ) : (
         <div className='cart-content'>
@@ -160,9 +160,9 @@ export default function CartPage() {
               <strong>¥{formatPrice(totalAmount)}</strong>
             </div>
 
-            <button className='checkout-button'>Proceed to Checkout</button>
+            <Link className='proceed-checkout-button' to={'/checkout'}>Proceed to Checkout</Link>
 
-            <button className='continue-shopping-button secondary' onClick={() => navigate('/')}>Continue Shopping</button>
+            <Link className='continue-shopping-button secondary' to={'/'}>Continue Shopping</Link>
           </aside>
         </div>
       )}
