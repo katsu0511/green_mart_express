@@ -199,23 +199,27 @@
 
 /* Buttons */
 
-.checkout-button, .continue-shopping-button {
+.proceed-checkout-button, .continue-shopping-button {
+  display: block;
   width: 100%;
-  min-height: 46px;
+  max-width: 272px;
+  height: 46px;
+  text-align: center;
+  line-height: 46px;
   border-radius: 6px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.checkout-button {
+.proceed-checkout-button {
   border: none;
   background-color: var(--primary);
   color: #fff;
 }
 
-.checkout-button:hover {
+.proceed-checkout-button:hover {
   opacity: 0.9;
 }
 
@@ -223,7 +227,7 @@
   border: 1px solid var(--primary);
   background-color: #fff;
   color: var(--primary);
-  margin-top: 12px;
+  margin: 12px auto 0;
 }
 
 .continue-shopping-button:hover {
