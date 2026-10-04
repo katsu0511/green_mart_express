@@ -4,6 +4,7 @@ import type { CartItemWithDetail } from '@/types/cartItem';
 import useModal from '@/lib/useModal';
 import useForm from '@/lib/useForm';
 import useAuth from '@/lib/useAuth';
+import { getCartItems, totalAmount, formatPrice } from '@/lib/useCart';
 import Heading from '@/components/Atoms/Heading/Heading';
 import { Link } from 'react-router-dom';
 
@@ -16,26 +17,8 @@ export default function CartPage() {
   const { refreshAuth } = useAuth();
 
   useEffect(() => {
-    const getCartItems = async () => {
-      const res = await fetch(`${API_BASE_URL}/api/cart`, {
-        credentials: 'include',
-      });
-
-      if (res.ok) {
-        const cartItemList: CartItemWithDetail[] = await res.json();
-        setCartItems(cartItemList);
-      } else if (res.status === 401) {
-        await refreshAuth();
-        navigate('/login');
-      } else {
-        const data = await res.json();
-        setErrorMessage(data.error);
-        setDisplayErrorModal(true);
-      }
-    };
-
-    getCartItems();
-  }, [refreshAuth, navigate, setErrorMessage, setDisplayErrorModal]);
+    getCartItems(setCartItems, setErrorMessage, setDisplayErrorModal, refreshAuth, navigate);
+  }, [setErrorMessage, setDisplayErrorModal, refreshAuth, navigate]);
 
   const updateQuantity = async (productId: number, quantity: number) => {
     const res = await fetch(`${API_BASE_URL}/api/cart/${productId}`, {
@@ -75,12 +58,6 @@ export default function CartPage() {
       setErrorMessage(data.error);
       setDisplayErrorModal(true);
     }
-  };
-
-  const totalAmount = cartItems.reduce((total, cartItem) => total + cartItem.product.price * cartItem.quantity, 0);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US').format(price);
   };
 
   return (
@@ -157,7 +134,7 @@ export default function CartPage() {
 
             <div className='summary-total'>
               <span>Total</span>
-              <strong>¥{formatPrice(totalAmount)}</strong>
+              <strong>¥{formatPrice(totalAmount(cartItems))}</strong>
             </div>
 
             <Link className='proceed-checkout-button' to={'/checkout'}>Proceed to Checkout</Link>
