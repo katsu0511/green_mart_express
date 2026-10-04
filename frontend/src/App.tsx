@@ -3,8 +3,8 @@ import AuthProviderWrapper from '@/components/Templates/AuthProviderWrapper/Auth
 import ModalProviderWrapper from '@/components/Templates/ModalProviderWrapper/ModalProviderWrapper';
 import ThemeProviderWrapper from '@/components/Templates/ThemeProviderWrapper/ThemeProviderWrapper';
 import MainLayout from '@/components/Templates/MainLayout/MainLayout';
-import ProductList from '@/pages/ProductListPage/ProductListPage';
-import ProductDetail from '@/pages/ProductDetailPage/ProductDetailPage';
+import ProductListPage from '@/pages/ProductListPage/ProductListPage';
+import ProductDetailPage from '@/pages/ProductDetailPage/ProductDetailPage';
 import RequireUnauth from '@/components/Templates/RequireUnauth/RequireUnauth';
 import LoginPage from '@/pages/LoginPage/LoginPage';
 import SignupPage from '@/pages/SignupPage/SignupPage';
@@ -21,8 +21,8 @@ export default function App() {
             <MainLayout>
               <Routes>
 
-                <Route path='/' element={<ProductList />} />
-                <Route path='/products/:id' element={<ProductDetail />} />
+                <Route path='/' element={<ProductListPage />} />
+                <Route path='/products/:id' element={<ProductDetailPage />} />
 
                 <Route element={<RequireUnauth />}>
                   <Route path='/login' element={<LoginPage />} />
