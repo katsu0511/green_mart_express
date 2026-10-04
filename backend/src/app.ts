@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from '@/routes/authRoutes.js';
 import productRoutes from '@/routes/productRoutes.js';
 import cartRoutes from '@/routes/cartRoutes.js';
+import checkoutRoutes from '@/routes/checkoutRoutes.js';
 import errorMiddleware from '@/middlewares/errorMiddleware.js';
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
+app.use('/api/checkout', checkoutRoutes);
 
 app.use(errorMiddleware);
 

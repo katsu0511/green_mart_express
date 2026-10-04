@@ -10,6 +10,7 @@ import LoginPage from '@/pages/LoginPage/LoginPage';
 import SignupPage from '@/pages/SignupPage/SignupPage';
 import RequireAuth from '@/components/Templates/RequireAuth/RequireAuth';
 import CartPage from'@/pages/CartPage/CartPage';
+import CheckoutPage from '@/pages/CheckoutPage/CheckoutPage';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
 
                 <Route element={<RequireAuth />}>
                   <Route path='/cart' element={<CartPage />} />
+                  <Route path='/checkout' element={<CheckoutPage />} />
                 </Route>
 
               </Routes>

@@ -4,6 +4,7 @@ import type { CartItemWithDetail } from '@/types/cartItem';
 import useModal from '@/lib/useModal';
 import useForm from '@/lib/useForm';
 import useAuth from '@/lib/useAuth';
+import { getCartItems, totalAmount, formatPrice } from '@/lib/useCart';
 import Heading from '@/components/Atoms/Heading/Heading';
 import { Link } from 'react-router-dom';
 
@@ -16,26 +17,8 @@ export default function CartPage() {
   const { refreshAuth } = useAuth();
 
   useEffect(() => {
-    const getCartItems = async () => {
-      const res = await fetch(`${API_BASE_URL}/api/cart`, {
-        credentials: 'include',
-      });
-
-      if (res.ok) {
-        const cartItemList: CartItemWithDetail[] = await res.json();
-        setCartItems(cartItemList);
-      } else if (res.status === 401) {
-        await refreshAuth();
-        navigate('/login');
-      } else {
-        const data = await res.json();
-        setErrorMessage(data.error);
-        setDisplayErrorModal(true);
-      }
-    };
-
-    getCartItems();
-  }, [refreshAuth, navigate, setErrorMessage, setDisplayErrorModal]);
+    getCartItems(setCartItems, setErrorMessage, setDisplayErrorModal, refreshAuth, navigate);
+  }, [setErrorMessage, setDisplayErrorModal, refreshAuth, navigate]);
 
   const updateQuantity = async (productId: number, quantity: number) => {
     const res = await fetch(`${API_BASE_URL}/api/cart/${productId}`, {
@@ -77,12 +60,6 @@ export default function CartPage() {
     }
   };
 
-  const totalAmount = cartItems.reduce((total, cartItem) => total + cartItem.product.price * cartItem.quantity, 0);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US').format(price);
-  };
-
   return (
     <div className='cart-page'>
       <div className='cart-header'>
@@ -94,7 +71,7 @@ export default function CartPage() {
           <div className='empty-cart-icon'>🛒</div>
           <h3>Your cart is empty</h3>
           <p>Add some products to your cart and they will appear here.</p>
-          <button className='continue-shopping-button' onClick={() => navigate('/')}>Continue Shopping</button>
+          <Link className='continue-shopping-button' to={'/'}>Continue Shopping</Link>
         </div>
       ) : (
         <div className='cart-content'>
@@ -157,12 +134,12 @@ export default function CartPage() {
 
             <div className='summary-total'>
               <span>Total</span>
-              <strong>¥{formatPrice(totalAmount)}</strong>
+              <strong>¥{formatPrice(totalAmount(cartItems))}</strong>
             </div>
 
-            <button className='checkout-button'>Proceed to Checkout</button>
+            <Link className='proceed-checkout-button' to={'/checkout'}>Proceed to Checkout</Link>
 
-            <button className='continue-shopping-button secondary' onClick={() => navigate('/')}>Continue Shopping</button>
+            <Link className='continue-shopping-button secondary' to={'/'}>Continue Shopping</Link>
           </aside>
         </div>
       )}
