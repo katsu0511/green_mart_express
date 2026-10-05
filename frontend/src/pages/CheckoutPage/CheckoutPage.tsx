@@ -4,9 +4,10 @@ import type { CartItemWithDetail } from '@/types/cartItem';
 import useModal from '@/lib/useModal';
 import useForm from '@/lib/useForm';
 import useAuth from '@/lib/useAuth';
-import { getCartItems, totalAmount, formatPrice } from '@/lib/useCart';
-import type { OrderItemInfo } from '@/types/orderItem';
+import { getCartItems, totalAmount } from '@/lib/useCart';
+import type { OrderItemInfo } from '@/types/order';
 import Heading from '@/components/Atoms/Heading/Heading';
+import { formatPrice } from '@/lib/useFormat';
 import { Link } from 'react-router-dom';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
