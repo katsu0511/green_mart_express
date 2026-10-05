@@ -12,14 +12,19 @@ export const getProducts = async (): Promise<Product[]> => {
 };
 
 export const getProduct = async (id: number): Promise<ProductWithCategory> => {
-  let product: ProductWithCategory | null;
-
   try {
-    product = await findProductById(id);
+    const product: ProductWithCategory | null = await findProductById(id);
+
+    if (!product) {
+      throw new AppError(404, 'Product not found');
+    }
+
+    return product;
   } catch (error) {
+    if (error instanceof AppError) {
+      throw error;
+    }
+
     throw new Error('Failed to fetch product');
   }
-
-  if (!product) throw new AppError(404, 'Product not found');
-  return product;
 };
