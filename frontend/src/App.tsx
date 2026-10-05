@@ -33,7 +33,7 @@ export default function App() {
                 <Route element={<RequireAuth />}>
                   <Route path='/cart' element={<CartPage />} />
                   <Route path='/checkout' element={<CheckoutPage />} />
-                  <Route path='/order' element={<OrderListPage />} />
+                  <Route path='/orders' element={<OrderListPage />} />
                 </Route>
 
               </Routes>
