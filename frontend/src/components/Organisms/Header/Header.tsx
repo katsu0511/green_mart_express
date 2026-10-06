@@ -4,6 +4,7 @@ import useAuth from '@/lib/useAuth';
 import useForm from '@/lib/useForm';
 import { handleLogout } from '@/lib/auth';
 import { Link } from 'react-router-dom';
+import HeaderPopupLink from '@/components/Modules/HeaderPopupLink/HeaderPopupLink';
 
 export default function Header() {
   const [showPopup, setShowPopup] = useState(false);
@@ -32,23 +33,14 @@ export default function Header() {
               {
                 isAuthenticated ?
                 <>
-                  <Link to='/cart' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                    <img src='/cart.png' className='header-popup__image' />
-                    <span className='header-popup__label'>Cart</span>
-                  </Link>
-                  <Link to='/orders' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                    <img src='/order.png' className='header-popup__image' />
-                    <span className='header-popup__label'>Order</span>
-                  </Link>
+                  <HeaderPopupLink link='cart' display='Cart' setShowPopup={setShowPopup} />
+                  <HeaderPopupLink link='orders' display='Order' setShowPopup={setShowPopup} />
                   <div className='header-popup__link logout-button' onClick={logout}>
                     <span className='header-popup__label'>Logout</span>
                   </div>
                 </>
                 :
-                <Link to='/login' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                  <img src='/login.png' className='header-popup__image' />
-                  <span className='header-popup__label'>Login</span>
-                </Link>
+                <HeaderPopupLink link='login' display='Login' setShowPopup={setShowPopup} />
               }
             </div>
           </div>
