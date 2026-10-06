@@ -40,11 +40,11 @@ export default function AuthProviderWrapper({ children }: { children: React.Reac
   };
 
   const isAuthenticated = user !== null;
-
+  const isCustomer = user !== null && user.role === 'CUSTOMER';
   const isAdmin = user !== null && user.role === 'ADMIN';
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, isAdmin, isLoading, refreshAuth, clearAuth }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, isCustomer, isAdmin, isLoading, refreshAuth, clearAuth }}>
       {children}
     </AuthContext.Provider>
   );
