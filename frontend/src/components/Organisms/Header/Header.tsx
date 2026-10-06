@@ -28,29 +28,29 @@ export default function Header() {
         {
           showPopup &&
           <div className='header-popup'>
-            {
-              isAuthenticated ?
-              <div className='header-popup__menu'>
-                <Link to='/cart' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                  <img src='/cart.png' className='header-popup__image' />
-                  <span className='header-popup__label'>Cart</span>
-                </Link>
-                <Link to='/orders' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                  <img src='/order.png' className='header-popup__image' />
-                  <span className='header-popup__label'>Order</span>
-                </Link>
-                <div className='header-popup__link logout-button' onClick={logout}>
-                  <span className='header-popup__label'>Logout</span>
-                </div>
-              </div>
-              :
-              <div className='header-popup__menu'>
+            <div className='header-popup__menu'>
+              {
+                isAuthenticated ?
+                <>
+                  <Link to='/cart' className='header-popup__link' onClick={() => setShowPopup(false)}>
+                    <img src='/cart.png' className='header-popup__image' />
+                    <span className='header-popup__label'>Cart</span>
+                  </Link>
+                  <Link to='/orders' className='header-popup__link' onClick={() => setShowPopup(false)}>
+                    <img src='/order.png' className='header-popup__image' />
+                    <span className='header-popup__label'>Order</span>
+                  </Link>
+                  <div className='header-popup__link logout-button' onClick={logout}>
+                    <span className='header-popup__label'>Logout</span>
+                  </div>
+                </>
+                :
                 <Link to='/login' className='header-popup__link' onClick={() => setShowPopup(false)}>
                   <img src='/login.png' className='header-popup__image' />
                   <span className='header-popup__label'>Login</span>
                 </Link>
-              </div>
-            }
+              }
+            </div>
           </div>
         }
       </div>
