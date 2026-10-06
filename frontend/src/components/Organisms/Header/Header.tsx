@@ -35,7 +35,7 @@ export default function Header() {
                   <img src='/cart.png' className='header-popup__image' />
                   <span className='header-popup__label'>Cart</span>
                 </Link>
-                <Link to='/order' className='header-popup__link' onClick={() => setShowPopup(false)}>
+                <Link to='/orders' className='header-popup__link' onClick={() => setShowPopup(false)}>
                   <img src='/order.png' className='header-popup__image' />
                   <span className='header-popup__label'>Order</span>
                 </Link>

@@ -12,6 +12,7 @@ import RequireAuth from '@/components/Templates/RequireAuth/RequireAuth';
 import CartPage from'@/pages/CartPage/CartPage';
 import CheckoutPage from '@/pages/CheckoutPage/CheckoutPage';
 import OrderListPage from '@/pages/OrderListPage/OrderListPage';
+import OrderDetailPage from '@/pages/OrderDetailPage/OrderDetailPage';
 
 export default function App() {
   return (
@@ -33,7 +34,8 @@ export default function App() {
                 <Route element={<RequireAuth />}>
                   <Route path='/cart' element={<CartPage />} />
                   <Route path='/checkout' element={<CheckoutPage />} />
-                  <Route path='/order' element={<OrderListPage />} />
+                  <Route path='/orders' element={<OrderListPage />} />
+                  <Route path='/orders/:id' element={<OrderDetailPage />} />
                 </Route>
 
               </Routes>
