@@ -8,7 +8,7 @@ import HeaderPopupLink from '@/components/Modules/HeaderPopupLink/HeaderPopupLin
 
 export default function Header() {
   const [showPopup, setShowPopup] = useState(false);
-  const { clearAuth, isAuthenticated } = useAuth();
+  const { clearAuth, isAuthenticated, isAdmin } = useAuth();
   const { navigate } = useForm();
 
   const logout = async () => {
@@ -33,8 +33,15 @@ export default function Header() {
               {
                 isAuthenticated ?
                 <>
-                  <HeaderPopupLink link='cart' display='Cart' setShowPopup={setShowPopup} />
-                  <HeaderPopupLink link='orders' display='Order' setShowPopup={setShowPopup} />
+                  {
+                    isAdmin ?
+                    <HeaderPopupLink link='admin' display='Admin' setShowPopup={setShowPopup} />
+                    :
+                    <>
+                      <HeaderPopupLink link='cart' display='Cart' setShowPopup={setShowPopup} />
+                      <HeaderPopupLink link='orders' display='Order' setShowPopup={setShowPopup} />
+                    </>
+                  }
                   <div className='header-popup__link logout-button' onClick={logout}>
                     <span className='header-popup__label'>Logout</span>
                   </div>
