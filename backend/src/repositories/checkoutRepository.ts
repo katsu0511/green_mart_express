@@ -1,4 +1,5 @@
-import type { OrderItemInfo, ProductInfo, OrderItemWithoutOrderId } from '@/types/orderItem.js';
+import type { OrderItemInfo, OrderItemWithoutOrderId } from '@/types/orderItem.js';
+import type { ProductInfo } from '@/types/product.js';
 import prisma from '@/lib/prisma.js';
 import type { Order } from '@/lib/generated/prisma/client.js';
 import { AppError } from '@/lib/appError.js';
