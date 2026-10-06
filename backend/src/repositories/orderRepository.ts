@@ -6,3 +6,15 @@ export const findOrders = (userId: number): Promise<Order[]> => {
     where: { userId },
   });
 };
+
+export const findOrder = (userId: number, orderId: number): Promise<Order | null> => {
+  return prisma.order.findUnique({
+    where: {
+      id: orderId,
+      userId,
+    },
+    include: {
+      items: true,
+    },
+  });
+};
