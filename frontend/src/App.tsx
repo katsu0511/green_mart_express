@@ -8,7 +8,7 @@ import ProductDetailPage from '@/pages/ProductDetailPage/ProductDetailPage';
 import RequireUnauth from '@/components/Templates/RequireUnauth/RequireUnauth';
 import LoginPage from '@/pages/LoginPage/LoginPage';
 import SignupPage from '@/pages/SignupPage/SignupPage';
-import RequireAuth from '@/components/Templates/RequireAuth/RequireAuth';
+import RequireCustomerAuth from '@/components/Templates/RequireCustomerAuth/RequireCustomerAuth';
 import CartPage from'@/pages/CartPage/CartPage';
 import CheckoutPage from '@/pages/CheckoutPage/CheckoutPage';
 import OrderListPage from '@/pages/OrderListPage/OrderListPage';
@@ -31,7 +31,7 @@ export default function App() {
                   <Route path='/signup' element={<SignupPage />} />
                 </Route>
 
-                <Route element={<RequireAuth />}>
+                <Route element={<RequireCustomerAuth />}>
                   <Route path='/cart' element={<CartPage />} />
                   <Route path='/checkout' element={<CheckoutPage />} />
                   <Route path='/orders' element={<OrderListPage />} />
