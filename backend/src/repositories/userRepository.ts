@@ -39,3 +39,14 @@ export const createUser = (data: {name: string, email: string, passwordHash: str
     },
   });
 };
+
+export const findUserRoleById = async (userId: number) => {
+  return prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      role: true,
+    },
+  });
+};
