@@ -1,4 +1,4 @@
-export type Role = 'CUSTOMER' | 'ADMIN';
+import type { Role } from '@/types/role';
 
 export type AppUser = {
   id: number
