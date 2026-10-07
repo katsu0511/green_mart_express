@@ -3,13 +3,6 @@ export type OrderItemInfo = {
   quantity: number
 };
 
-export type ProductInfo = {
-  id: number
-  name: string
-  price: number
-  stock: number
-};
-
 export type OrderItemWithoutOrderId = {
   productId: number
   name: string

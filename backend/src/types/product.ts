@@ -1,5 +1,12 @@
 import type { Category } from '@/lib/generated/prisma/client.js';
 
+export type ProductInfo = {
+  id: number
+  name: string
+  price: number
+  stock: number
+};
+
 export type ProductWithCategory = {
   id: number
   name: string

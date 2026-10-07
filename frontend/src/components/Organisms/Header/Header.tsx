@@ -4,10 +4,11 @@ import useAuth from '@/lib/useAuth';
 import useForm from '@/lib/useForm';
 import { handleLogout } from '@/lib/auth';
 import { Link } from 'react-router-dom';
+import HeaderPopupLink from '@/components/Modules/HeaderPopupLink/HeaderPopupLink';
 
 export default function Header() {
   const [showPopup, setShowPopup] = useState(false);
-  const { clearAuth, isAuthenticated } = useAuth();
+  const { clearAuth, isAuthenticated, isAdmin } = useAuth();
   const { navigate } = useForm();
 
   const logout = async () => {
@@ -28,29 +29,27 @@ export default function Header() {
         {
           showPopup &&
           <div className='header-popup'>
-            {
-              isAuthenticated ?
-              <div className='header-popup__menu'>
-                <Link to='/cart' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                  <img src='/cart.png' className='header-popup__image' />
-                  <span className='header-popup__label'>Cart</span>
-                </Link>
-                <Link to='/orders' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                  <img src='/order.png' className='header-popup__image' />
-                  <span className='header-popup__label'>Order</span>
-                </Link>
-                <div className='header-popup__link logout-button' onClick={logout}>
-                  <span className='header-popup__label'>Logout</span>
-                </div>
-              </div>
-              :
-              <div className='header-popup__menu'>
-                <Link to='/login' className='header-popup__link' onClick={() => setShowPopup(false)}>
-                  <img src='/login.png' className='header-popup__image' />
-                  <span className='header-popup__label'>Login</span>
-                </Link>
-              </div>
-            }
+            <div className='header-popup__menu'>
+              {
+                isAuthenticated ?
+                <>
+                  {
+                    isAdmin ?
+                    <HeaderPopupLink link='admin' display='Admin' setShowPopup={setShowPopup} />
+                    :
+                    <>
+                      <HeaderPopupLink link='cart' display='Cart' setShowPopup={setShowPopup} />
+                      <HeaderPopupLink link='orders' display='Order' setShowPopup={setShowPopup} />
+                    </>
+                  }
+                  <div className='header-popup__link logout-button' onClick={logout}>
+                    <span className='header-popup__label'>Logout</span>
+                  </div>
+                </>
+                :
+                <HeaderPopupLink link='login' display='Login' setShowPopup={setShowPopup} />
+              }
+            </div>
           </div>
         }
       </div>

@@ -4,6 +4,8 @@ import { createContext } from 'react';
 type AuthContextType = {
   user: AppUser | null
   isAuthenticated: boolean
+  isCustomer: boolean
+  isAdmin: boolean
   isLoading: boolean
   refreshAuth: () => Promise<void>
   clearAuth: () => void

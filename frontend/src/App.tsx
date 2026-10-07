@@ -8,11 +8,13 @@ import ProductDetailPage from '@/pages/ProductDetailPage/ProductDetailPage';
 import RequireUnauth from '@/components/Templates/RequireUnauth/RequireUnauth';
 import LoginPage from '@/pages/LoginPage/LoginPage';
 import SignupPage from '@/pages/SignupPage/SignupPage';
-import RequireAuth from '@/components/Templates/RequireAuth/RequireAuth';
+import RequireCustomerAuth from '@/components/Templates/RequireCustomerAuth/RequireCustomerAuth';
 import CartPage from'@/pages/CartPage/CartPage';
 import CheckoutPage from '@/pages/CheckoutPage/CheckoutPage';
 import OrderListPage from '@/pages/OrderListPage/OrderListPage';
 import OrderDetailPage from '@/pages/OrderDetailPage/OrderDetailPage';
+import RequireAdminAuth from '@/components/Templates/RequireAdminAuth/RequireAdminAuth';
+import AdminPage from '@/pages/AdminPage/AdminPage';
 
 export default function App() {
   return (
@@ -31,11 +33,15 @@ export default function App() {
                   <Route path='/signup' element={<SignupPage />} />
                 </Route>
 
-                <Route element={<RequireAuth />}>
+                <Route element={<RequireCustomerAuth />}>
                   <Route path='/cart' element={<CartPage />} />
                   <Route path='/checkout' element={<CheckoutPage />} />
                   <Route path='/orders' element={<OrderListPage />} />
                   <Route path='/orders/:id' element={<OrderDetailPage />} />
+                </Route>
+
+                <Route element={<RequireAdminAuth />}>
+                  <Route path='/admin' element={<AdminPage />} />
                 </Route>
 
               </Routes>
