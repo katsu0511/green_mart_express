@@ -21,3 +21,8 @@ export type OrderWithOrderItem = {
   updatedAt: string
   items: OrderItem[]
 };
+
+export type OrderMonth = {
+  year: number
+  month: number
+};
