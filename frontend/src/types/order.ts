@@ -1,4 +1,5 @@
-export type OrderStatus = 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'CANCELLED';
+import type { OrderStatus } from '@/types/orderStatus';
+import type { OrderItem } from '@/types/orderItem';
 
 export type Order = {
   id: number
@@ -19,17 +20,4 @@ export type OrderWithOrderItem = {
   createdAt: string
   updatedAt: string
   items: OrderItem[]
-};
-
-export type OrderItem = {
-  orderId: number
-  productId: number
-  name: string
-  price: number
-  quantity: number
-};
-
-export type OrderItemInfo = {
-  productId: number
-  quantity: number
 };
