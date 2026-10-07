@@ -13,8 +13,9 @@ export const getDashboard = async () => {
     ]);
 
     const sales = salesResult._sum.totalAmount ?? 0;
+    const months = orderMonths.map(orderMonth => ({ year: Number(orderMonth.year), month: Number(orderMonth.month) }));
 
-    return { sales, orders: orderCount, months: orderMonths };
+    return { sales, orders: orderCount, months };
   } catch (error) {
     throw new Error('Failed to fetch dashboard information');
   }
