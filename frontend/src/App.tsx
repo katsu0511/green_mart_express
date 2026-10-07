@@ -13,6 +13,8 @@ import CartPage from'@/pages/CartPage/CartPage';
 import CheckoutPage from '@/pages/CheckoutPage/CheckoutPage';
 import OrderListPage from '@/pages/OrderListPage/OrderListPage';
 import OrderDetailPage from '@/pages/OrderDetailPage/OrderDetailPage';
+import RequireAdminAuth from '@/components/Templates/RequireAdminAuth/RequireAdminAuth';
+import AdminPage from '@/pages/AdminPage/AdminPage';
 
 export default function App() {
   return (
@@ -36,6 +38,10 @@ export default function App() {
                   <Route path='/checkout' element={<CheckoutPage />} />
                   <Route path='/orders' element={<OrderListPage />} />
                   <Route path='/orders/:id' element={<OrderDetailPage />} />
+                </Route>
+
+                <Route element={<RequireAdminAuth />}>
+                  <Route path='/admin' element={<AdminPage />} />
                 </Route>
 
               </Routes>
