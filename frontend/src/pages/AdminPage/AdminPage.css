@@ -1,0 +1,268 @@
+.admin-page {
+  width: 100%;
+  height: 100%;
+  padding: 40px 24px 64px;
+}
+
+.admin-page__header {
+  margin-bottom: 48px;
+}
+
+.admin-page__eyebrow, .admin-page__section-eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.admin-page__eyebrow {
+  color: #777;
+}
+
+.admin-page__section-eyebrow {
+  color: #888;
+}
+
+.admin-page__title {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.admin-page__section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.admin-page__section:last-child {
+  margin-bottom: 0;
+}
+
+.admin-page__section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-page__section-title {
+  font-size: 22px;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Statistics */
+
+.admin-page__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.admin-page__stat-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 140px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
+}
+
+.admin-page__stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: #f3f3f3;
+  color: #333;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.admin-page__stat-label {
+  margin: 0 0 6px;
+  color: #777;
+  font-size: 14px;
+}
+
+.admin-page__stat-value {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* Months */
+
+.admin-page__month-list {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-page__month-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  color: #222;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  min-height: 60px;
+  padding: 0 20px;
+  transition: all 0.15s ease;
+}
+
+.admin-page__month-link:hover {
+  background-color: #fafafa;
+  color: #222;
+  border-color: #bbb;
+  transform: translateY(-1px);
+}
+
+.admin-page__month-arrow {
+  color: #888;
+  font-size: 18px;
+}
+
+.admin-page__empty {
+  padding: 40px 20px;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+  text-align: center;
+  color: #777;
+}
+
+.admin-page__empty p {
+  margin: 0;
+}
+
+/* Management */
+
+.admin-page__management-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.admin-page__management-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 110px;
+  padding: 22px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  color: #222;
+  background: #fff;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 3%);
+  transition: all 0.15s ease;
+}
+
+.admin-page__management-card:hover {
+  border-color: #ccc;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 7%);
+  transform: translateY(-2px);
+}
+
+.admin-page__management-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: #f3f3f3;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.admin-page__management-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.admin-page__management-content h3 {
+  margin: 0 0 5px;
+  font-size: 17px;
+}
+
+.admin-page__management-content p {
+  margin: 0;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-page__management-arrow {
+  flex-shrink: 0;
+  color: #888;
+  font-size: 20px;
+}
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .admin-page {
+    padding: 36px 20px 60px;
+  }
+
+  .admin-page__header {
+    margin-bottom: 36px;
+  }
+
+  .admin-page__title {
+    font-size: 30px;
+  }
+
+  .admin-page__month-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-page__stats, .admin-page__management-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-page__month-list {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-page__stat-card {
+    min-height: 120px;
+    padding: 22px;
+  }
+
+  .admin-page__stat-value {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-page {
+    padding: 28px 16px 48px;
+  }
+
+  .admin-page__title {
+    font-size: 27px;
+  }
+
+  .admin-page__description {
+    font-size: 14px;
+  }
+}
