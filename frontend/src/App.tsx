@@ -15,6 +15,7 @@ import OrderListPage from '@/pages/OrderListPage/OrderListPage';
 import OrderDetailPage from '@/pages/OrderDetailPage/OrderDetailPage';
 import RequireAdminAuth from '@/components/Templates/RequireAdminAuth/RequireAdminAuth';
 import AdminPage from '@/pages/AdminPage/AdminPage';
+import AdminProductListPage from '@/pages/AdminProductListPage/AdminProductListPage';
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
 
                 <Route element={<RequireAdminAuth />}>
                   <Route path='/admin' element={<AdminPage />} />
+                  <Route path='/admin/products' element={<AdminProductListPage />} />
                 </Route>
 
               </Routes>
