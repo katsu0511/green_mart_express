@@ -35,7 +35,7 @@ export default function AdminProductListPage() {
           <h1 className='admin-product-list__title'>Products</h1>
           <p className='admin-product-list__description'>Manage your products and inventory.</p>
         </div>
-        <Link to='/admin/products/new' className='admin-product-list__add'>+ Add Product</Link>
+        <Link to='/admin/products/add' className='admin-product-list__add'>+ Add Product</Link>
       </div>
 
       <div className='admin-product-list__items'>
