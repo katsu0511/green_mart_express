@@ -1,5 +1,7 @@
 import prisma from '@/lib/prisma.js';
 import type { OrderMonth } from '@/types/order.js';
+import type { Product } from '@/lib/generated/prisma/client.js';
+import { AppError } from '@/lib/appError.js';
 
 export const getMonthlySales = (startDate: Date, endDate: Date) => {
   return prisma.order.aggregate({
@@ -39,4 +41,26 @@ export const getOrderMonths = (): Promise<OrderMonth[]> => {
     GROUP BY year, month
     ORDER BY year, month
   `;
+};
+
+export const updateStock = (productId: number, quantity: number): Promise<Product> => {
+  return prisma.$transaction(async (tx) => {
+    const product = await tx.product.findUnique({
+      where: { id: productId },
+      select: { id: true },
+    });
+
+    if (!product) {
+      throw new AppError(404, 'Product not found');
+    }
+
+    return tx.product.update({
+      where: { id: productId },
+      data: {
+        stock: {
+          increment: quantity,
+        },
+      },
+    });
+  });
 };
