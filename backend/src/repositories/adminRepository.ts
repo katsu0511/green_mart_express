@@ -61,6 +61,9 @@ export const updateStock = (productId: number, quantity: number): Promise<Produc
           increment: quantity,
         },
       },
+      include: {
+        category: true,
+      },
     });
   });
 };
