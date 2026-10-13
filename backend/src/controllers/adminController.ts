@@ -10,5 +10,5 @@ export const addStock = async (req: Request, res: Response) => {
   const productId = Number(req.params.id);
   const { quantity } = req.body;
   const product = await adminService.addStock(productId, quantity);
-  res.status(204).json(product);
+  res.status(200).json(product);
 };
