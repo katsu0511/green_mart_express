@@ -1,4 +1,5 @@
 import * as adminRepository from '@/repositories/adminRepository.js';
+import { AppError } from '@/lib/appError.js';
 
 export const getDashboard = async () => {
   try {
@@ -18,5 +19,16 @@ export const getDashboard = async () => {
     return { sales, orders: orderCount, months };
   } catch (error) {
     throw new Error('Failed to fetch dashboard information');
+  }
+};
+
+export const addStock = async (productId: number, quantity: number) => {
+  try {
+    return await adminRepository.updateStock(productId, quantity);
+  } catch (error) {
+    if (error instanceof AppError && error.statusCode === 404) {
+      throw new AppError(404, 'Product not found');
+    }
+    throw new Error('Failed to add stock');
   }
 };
