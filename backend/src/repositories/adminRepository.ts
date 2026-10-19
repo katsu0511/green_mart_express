@@ -1,7 +1,8 @@
 import prisma from '@/lib/prisma.js';
 import type { OrderMonth } from '@/types/order.js';
-import type { Product } from '@/lib/generated/prisma/client.js';
+import type { Product, Category } from '@/lib/generated/prisma/client.js';
 import { AppError } from '@/lib/appError.js';
+import type { ProductWithCategory } from '@/types/product.js';
 
 export const getMonthlySales = (startDate: Date, endDate: Date) => {
   return prisma.order.aggregate({
@@ -65,5 +66,22 @@ export const updateStock = (productId: number, quantity: number): Promise<Produc
         category: true,
       },
     });
+  });
+};
+
+export const findCategoryById = (categoryId: number): Promise<Category | null> => {
+  return prisma.category.findUnique({
+    where: {
+      id: categoryId,
+    },
+  });
+};
+
+export const createProduct = (data: { categoryId: number, name: string, description: string, price: number, imageUrl: string, stock: number }): Promise<ProductWithCategory> => {
+  return prisma.product.create({
+    data,
+    include: {
+      category: true,
+    },
   });
 };
