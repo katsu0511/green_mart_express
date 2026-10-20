@@ -32,3 +32,17 @@ export const addStock = async (productId: number, quantity: number) => {
     throw new Error('Failed to add stock');
   }
 };
+
+export const createProduct = async (categoryId: number, name: string, description: string, price: number, imageUrl: string, stock: number) => {
+  const category = await adminRepository.findCategoryById(categoryId);
+
+  if (!category) {
+    throw new AppError(404, 'Category not found');
+  }
+
+  try {
+    return await adminRepository.createProduct({ categoryId, name, description, price, imageUrl, stock });
+  } catch (error) {
+    throw new Error('Failed to create product');
+  }
+};
