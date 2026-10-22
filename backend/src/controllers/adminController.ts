@@ -12,3 +12,9 @@ export const addStock = async (req: Request, res: Response) => {
   const product = await adminService.addStock(productId, quantity);
   res.status(200).json(product);
 };
+
+export const createProduct = async (req: Request, res: Response) => {
+  const { categoryId, name, description, price, imageUrl, stock } = req.body;
+  const product = await adminService.createProduct(categoryId, name, description, price, imageUrl, stock);
+  res.status(201).json(product);
+};
