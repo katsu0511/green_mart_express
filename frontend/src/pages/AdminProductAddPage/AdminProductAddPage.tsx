@@ -1,3 +1,4 @@
+import './AdminProductAddPage.css';
 import Heading from '@/components/Atoms/Heading/Heading';
 import FormInput from '@/components/Modules/FormInput/FormInput';
 import FormButton from '@/components/Modules/FormButton/FormButton';
