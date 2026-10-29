@@ -22,24 +22,6 @@ export default function AdminProductAddPage() {
     e.preventDefault();
     setHasClicked(true);
     setError('');
-
-    if (password !== passwordConfirm) {
-      setError('Password doesn\'t match');
-      setHasClicked(false);
-      return;
-    }
-
-    const error = await handleSignup(name, email, password);
-
-    if (error) {
-      setError(error.message);
-      setHasClicked(false);
-      return;
-    }
-
-    await refreshAuth();
-
-    navigate('/cart');
   };
 
   return (
