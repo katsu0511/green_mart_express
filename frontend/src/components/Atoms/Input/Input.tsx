@@ -9,5 +9,18 @@ type Props = {
 };
 
 export default function Input({ label, type, value, onChange }: Props) {
-  return <TextField id={label} label={label} type={type} value={value} variant='outlined' onChange={onChange} required />;
+  return <TextField
+    id={label}
+    label={label}
+    type={type}
+    value={value}
+    variant='outlined'
+    slotProps={{
+      htmlInput: {
+        step: type === 'number' ? 1 : undefined,
+      },
+    }}
+    onChange={onChange}
+    required
+  />;
 }
