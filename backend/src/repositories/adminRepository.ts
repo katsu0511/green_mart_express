@@ -85,3 +85,19 @@ export const createProduct = (data: { categoryId: number, name: string, descript
     },
   });
 };
+
+export const updateProduct = (data: {productId: number, categoryId: number, name: string, description: string, price: number, imageUrl: string}): Promise<ProductWithCategory> => {
+  return prisma.product.update({
+    where: { id: data.productId },
+    data: {
+      categoryId: data.categoryId,
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      imageUrl: data.imageUrl,
+    },
+    include: {
+      category: true,
+    },
+  });
+};
