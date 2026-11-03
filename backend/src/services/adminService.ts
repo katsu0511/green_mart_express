@@ -1,5 +1,6 @@
 import * as adminRepository from '@/repositories/adminRepository.js';
 import { AppError } from '@/lib/appError.js';
+import { findProductById } from '@/repositories/productRepository.js';
 
 export const getDashboard = async () => {
   try {
@@ -44,5 +45,25 @@ export const createProduct = async (categoryId: number, name: string, descriptio
     return await adminRepository.createProduct({ categoryId, name, description, price, imageUrl, stock });
   } catch (error) {
     throw new Error('Failed to create product');
+  }
+};
+
+export const updateProduct = async (productId: number, categoryId: number, name: string, description: string, price: number, imageUrl: string) => {
+  const category = await adminRepository.findCategoryById(categoryId);
+
+  if (!category) {
+    throw new AppError(404, 'Category not found');
+  }
+
+  const product = await findProductById(productId);
+
+  if (!product) {
+    throw new AppError(404, 'Product not found');
+  }
+
+  try {
+    return await adminRepository.updateProduct({ productId, categoryId, name, description, price, imageUrl });
+  } catch (error) {
+    throw new Error('Failed to update product');
   }
 };
