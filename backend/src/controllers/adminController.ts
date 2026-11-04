@@ -18,3 +18,10 @@ export const createProduct = async (req: Request, res: Response) => {
   const product = await adminService.createProduct(categoryId, name, description, price, imageUrl, stock);
   res.status(201).json(product);
 };
+
+export const updateProduct = async (req: Request, res: Response) => {
+  const productId = Number(req.params.id);
+  const { categoryId, name, description, price, imageUrl } = req.body;
+  const product = await adminService.updateProduct(productId, categoryId, name, description, price, imageUrl);
+  res.status(200).json(product);
+};
