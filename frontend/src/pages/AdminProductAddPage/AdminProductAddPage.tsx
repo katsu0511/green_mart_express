@@ -65,7 +65,7 @@ export default function AdminProductAddPage() {
       return;
     }
 
-    if (price <= 0) {
+    if (!Number.isInteger(price) || price <= 0) {
       setError('Please enter a valid price');
       setHasClicked(false);
       return;

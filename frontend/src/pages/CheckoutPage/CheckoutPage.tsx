@@ -46,7 +46,7 @@ export default function CheckoutPage() {
     });
 
     if (res.ok) {
-      navigate('/order');
+      navigate('/orders');
     } else if (res.status === 401) {
       redirectToLoginPage();
     } else {
