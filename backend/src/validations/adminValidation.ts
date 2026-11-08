@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const adminUpdateSchema = z.object({
+export const adminProductIdSchema = z.object({
   id: z.coerce.number().int().positive(),
 });
 
