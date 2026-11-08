@@ -25,3 +25,9 @@ export const updateProduct = async (req: Request, res: Response) => {
   const product = await adminService.updateProduct(productId, categoryId, name, description, price, imageUrl);
   res.status(200).json(product);
 };
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  const productId = Number(req.params.id);
+  await adminService.deleteProduct(productId);
+  res.status(204).send();
+};
