@@ -2,6 +2,8 @@ import './AdminProductListPage.css';
 import { useState, useEffect } from 'react';
 import type { Product } from '@/types/product';
 import useModal from '@/lib/useModal';
+import useForm from '@/lib/useForm';
+import useAuth from '@/lib/useAuth';
 import { Link } from 'react-router-dom';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -9,6 +11,8 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export default function AdminProductListPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const { setErrorMessage, setDisplayErrorModal } = useModal();
+  const { navigate } = useForm();
+  const { refreshAuth } = useAuth();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -26,6 +30,30 @@ export default function AdminProductListPage() {
 
     getProducts();
   }, [setErrorMessage, setDisplayErrorModal]);
+
+  const preCheck = (productId: number) => {
+    if (confirm('Are you sure to delete product?')) {
+			deleteProduct(productId);
+		}
+  };
+
+  const deleteProduct = async (productId: number) => {
+    const res = await fetch(`${API_BASE_URL}/api/admin/products/${productId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (res.ok) {
+      navigate(0);
+    } else if (res.status === 401) {
+      await refreshAuth();
+      navigate('/login');
+    } else {
+      const data = await res.json();
+      setErrorMessage(data.error);
+      setDisplayErrorModal(true);
+    }
+  };
 
   return (
     <div className='admin-product-list'>
@@ -53,7 +81,7 @@ export default function AdminProductListPage() {
 
             <div className='admin-product-list__actions'>
               <Link to={`/admin/products/${product.id}/edit`} className='admin-product-list__edit'>Edit</Link>
-              <button type='button' className='admin-product-list__delete'>Delete</button>
+              <button type='button' className='admin-product-list__delete' onClick={() => preCheck(product.id)}>Delete</button>
             </div>
           </div>
         ))}

@@ -62,6 +62,32 @@ export default function AdminProductDetailPage() {
     setIsAddingStock(false);
   };
 
+  const preCheck = () => {
+    if (confirm('Are you sure to delete product?')) {
+			deleteProduct();
+		}
+  };
+
+  const deleteProduct = async () => {
+    if (!product) return;
+
+    const res = await fetch(`${API_BASE_URL}/api/admin/products/${product.id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (res.ok) {
+      navigate('/admin/products');
+    } else if (res.status === 401) {
+      await refreshAuth();
+      navigate('/login');
+    } else {
+      const data = await res.json();
+      setErrorMessage(data.error);
+      setDisplayErrorModal(true);
+    }
+  };
+
   if (!product) {
     return <p>Loading...</p>;
   }
@@ -121,7 +147,7 @@ export default function AdminProductDetailPage() {
 
           <div className='admin-product-detail__actions'>
             <Link to={`/admin/products/${product.id}/edit`} className='admin-product-detail__edit'>Edit Product</Link>
-            <button type='button' className='admin-product-detail__delete'>Delete Product</button>
+            <button type='button' className='admin-product-detail__delete' onClick={preCheck}>Delete Product</button>
           </div>
         </div>
       </div>

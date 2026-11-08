@@ -101,3 +101,9 @@ export const updateProduct = (data: {productId: number, categoryId: number, name
     },
   });
 };
+
+export const deleteProduct = (productId: number): Promise<Product> => {
+  return prisma.product.delete({
+    where: { id: productId },
+  });
+};

@@ -67,3 +67,17 @@ export const updateProduct = async (productId: number, categoryId: number, name:
     throw new Error('Failed to update product');
   }
 };
+
+export const deleteProduct = async (productId: number) => {
+  const product = await findProductById(productId);
+
+  if (!product) {
+    throw new AppError(404, 'Product not found');
+  }
+
+  try {
+    return await adminRepository.deleteProduct(productId);
+  } catch (error) {
+    throw new Error('Failed to delete product');
+  }
+};
