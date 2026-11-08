@@ -134,6 +134,15 @@ export default function AdminPage() {
             </div>
             <span className='admin-page__management-arrow'>→</span>
           </Link>
+
+          <Link to='/admin/categories' className='admin-page__management-card'>
+            <div className='admin-page__management-icon'>C</div>
+            <div className='admin-page__management-content'>
+              <h3>Categories</h3>
+              <p>View and manage product categories.</p>
+            </div>
+            <span className='admin-page__management-arrow'>→</span>
+          </Link>
         </div>
       </section>
     </div>
