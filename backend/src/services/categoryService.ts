@@ -8,3 +8,11 @@ export const getCategories = async (): Promise<Category[]> => {
     throw new Error('Failed to fetch categories');
   }
 };
+
+export const createCategory = async (name: string, slug: string): Promise<Category> => {
+  try {
+    return await categoryRepository.createCategory(name, slug);
+  } catch (error) {
+    throw new Error('Failed to create category');
+  }
+};
