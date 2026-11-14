@@ -20,6 +20,7 @@ async function main() {
       passwordHash: adminHash,
       name: "店舗管理者",
       address: "東京都千代田区1-1-1",
+      birthDate: new Date('1990-01-01'),
       role: Role.ADMIN,
     },
   });
@@ -30,6 +31,7 @@ async function main() {
       passwordHash: userHash,
       name: "山田太郎",
       address: "神奈川県横浜市西区2-2-2",
+      birthDate: new Date('1995-05-05'),
       role: Role.CUSTOMER,
     },
   });
