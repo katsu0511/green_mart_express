@@ -20,6 +20,7 @@ import AdminProductDetailPage from '@/pages/AdminProductDetailPage/AdminProductD
 import AdminProductAddPage from '@/pages/AdminProductAddPage/AdminProductAddPage';
 import AdminProductEditPage from '@/pages/AdminProductEditPage/AdminProductEditPage';
 import AdminCategoryListPage from '@/pages/AdminCategoryListPage/AdminCategoryListPage';
+import AdminCategoryAddPage from '@/pages/AdminCategoryAddPage/AdminCategoryAddPage';
 
 export default function App() {
   return (
@@ -52,6 +53,7 @@ export default function App() {
                   <Route path='/admin/products/add' element={<AdminProductAddPage />} />
                   <Route path='/admin/products/:id/edit' element={<AdminProductEditPage />} />
                   <Route path='/admin/categories' element={<AdminCategoryListPage />} />
+                  <Route path='/admin/categories/add' element={<AdminCategoryAddPage />} />
                 </Route>
 
               </Routes>
