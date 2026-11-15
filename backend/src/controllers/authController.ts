@@ -20,8 +20,8 @@ export const logout = async (_req: Request, res: Response) => {
 };
 
 export const signup = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  const { user, token } = await authService.signup(name, email, password);
+  const { name, birthDate, email, password } = req.body;
+  const { user, token } = await authService.signup(name, birthDate, email, password);
   setAuthCookie(res, token);
   res.status(201).json(user);
 };
