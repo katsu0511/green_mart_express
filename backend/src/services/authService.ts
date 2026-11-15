@@ -4,6 +4,7 @@ import { AppError } from '@/lib/appError.js';
 import type { User as AuthUser } from '@/lib/generated/prisma/client.js';
 import bcrypt from 'bcrypt';
 import { generateToken } from '@/lib/jwt.js';
+import type { SignupInput } from '@/types/signupData.js';
 
 export const getMe = async (userId: number) => {
   const user: AppUser | null = await findUserById(userId);
@@ -41,7 +42,8 @@ export const login = async (email: string, password: string) => {
   return { user: appUser, token };
 };
 
-export const signup = async (name: string, birthDate: string, email: string, password: string) => {
+export const signup = async (input: SignupInput) => {
+  const { name, birthDate, email, password } = input;
   const existingUser: AuthUser | null = await findUserByEmail(email);
 
   if (existingUser) {
