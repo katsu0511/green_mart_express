@@ -12,6 +12,7 @@ export const findUserById = (userId: number): Promise<AppUser | null> => {
       email: true,
       name: true,
       address: true,
+      birthDate: true,
       role: true,
       createdAt: true,
     },
@@ -26,14 +27,20 @@ export const findUserByEmail = (email: string): Promise<AuthUser | null> => {
   });
 };
 
-export const createUser = (data: {name: string, email: string, passwordHash: string}): Promise<AppUser> => {
+export const createUser = (data: {name: string, birthDate: string, email: string, passwordHash: string}): Promise<AppUser> => {
   return prisma.user.create({
-    data,
+    data: {
+      name: data.name,
+      birthDate: new Date(`${data.birthDate}T00:00:00.000Z`),
+      email: data.email,
+      passwordHash: data.passwordHash,
+    },
     select: {
       id: true,
       email: true,
       name: true,
       address: true,
+      birthDate: true,
       role: true,
       createdAt: true,
     },
