@@ -1,4 +1,5 @@
 import * as adminRepository from '@/repositories/adminRepository.js';
+import type { Category } from '@/lib/generated/prisma/client.js';
 import type { Product } from '@/types/product.js';
 import { dateToDateTimeString } from '@/lib/dateConvert.js';
 import { AppError } from '@/lib/appError.js';
@@ -22,6 +23,14 @@ export const getDashboard = async () => {
     return { sales, orders: orderCount, months };
   } catch (error) {
     throw new Error('Failed to fetch dashboard information');
+  }
+};
+
+export const createCategory = async (name: string, slug: string): Promise<Category> => {
+  try {
+    return await adminRepository.createCategory(name, slug);
+  } catch (error) {
+    throw new Error('Failed to create category');
   }
 };
 
