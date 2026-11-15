@@ -1,8 +1,6 @@
 import prisma from '@/lib/prisma.js';
 import type { OrderMonth } from '@/types/order.js';
-import type { Product, Category } from '@/lib/generated/prisma/client.js';
 import { AppError } from '@/lib/appError.js';
-import type { ProductWithCategory } from '@/types/product.js';
 
 export const getMonthlySales = (startDate: Date, endDate: Date) => {
   return prisma.order.aggregate({
@@ -21,7 +19,7 @@ export const getMonthlySales = (startDate: Date, endDate: Date) => {
   });
 };
 
-export const getMonthlyOrderCount = (startDate: Date, endDate: Date): Promise<number> => {
+export const getMonthlyOrderCount = (startDate: Date, endDate: Date) => {
   return prisma.order.count({
     where: {
       createdAt: {
@@ -35,7 +33,7 @@ export const getMonthlyOrderCount = (startDate: Date, endDate: Date): Promise<nu
   });
 };
 
-export const getOrderMonths = (): Promise<OrderMonth[]> => {
+export const getOrderMonths = () => {
   return prisma.$queryRaw<OrderMonth[]>`
     SELECT YEAR(createdAt) AS year, MONTH(createdAt) AS month
     FROM orders
@@ -44,7 +42,7 @@ export const getOrderMonths = (): Promise<OrderMonth[]> => {
   `;
 };
 
-export const updateStock = (productId: number, quantity: number): Promise<Product> => {
+export const updateStock = (productId: number, quantity: number) => {
   return prisma.$transaction(async (tx) => {
     const product = await tx.product.findUnique({
       where: { id: productId },
@@ -69,7 +67,7 @@ export const updateStock = (productId: number, quantity: number): Promise<Produc
   });
 };
 
-export const findCategoryById = (categoryId: number): Promise<Category | null> => {
+export const findCategoryById = (categoryId: number) => {
   return prisma.category.findUnique({
     where: {
       id: categoryId,
@@ -77,7 +75,7 @@ export const findCategoryById = (categoryId: number): Promise<Category | null> =
   });
 };
 
-export const createProduct = (data: { categoryId: number, name: string, description: string, price: number, imageUrl: string, stock: number }): Promise<ProductWithCategory> => {
+export const createProduct = (data: { categoryId: number, name: string, description: string, price: number, imageUrl: string, stock: number }) => {
   return prisma.product.create({
     data,
     include: {
@@ -86,7 +84,7 @@ export const createProduct = (data: { categoryId: number, name: string, descript
   });
 };
 
-export const updateProduct = (data: {productId: number, categoryId: number, name: string, description: string, price: number, imageUrl: string}): Promise<ProductWithCategory> => {
+export const updateProduct = (data: {productId: number, categoryId: number, name: string, description: string, price: number, imageUrl: string}) => {
   return prisma.product.update({
     where: { id: data.productId },
     data: {
@@ -102,7 +100,7 @@ export const updateProduct = (data: {productId: number, categoryId: number, name
   });
 };
 
-export const deleteProduct = (productId: number): Promise<Product> => {
+export const deleteProduct = (productId: number) => {
   return prisma.product.delete({
     where: { id: productId },
   });
