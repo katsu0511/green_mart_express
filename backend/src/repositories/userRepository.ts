@@ -1,6 +1,14 @@
+import type { DateString } from '@/types/date.js';
 import type { AppUser } from '@/types/user.js';
 import prisma from '@/lib/prisma.js';
 import type { User as AuthUser } from '@/lib/generated/prisma/client.js';
+
+type CreateUserData = {
+  name: string;
+  birthDate: DateString;
+  email: string;
+  passwordHash: string;
+};
 
 export const findUserById = (userId: number): Promise<AppUser | null> => {
   return prisma.user.findUnique({
@@ -27,7 +35,7 @@ export const findUserByEmail = (email: string): Promise<AuthUser | null> => {
   });
 };
 
-export const createUser = (data: {name: string, birthDate: string, email: string, passwordHash: string}): Promise<AppUser> => {
+export const createUser = (data: CreateUserData): Promise<AppUser> => {
   return prisma.user.create({
     data: {
       name: data.name,
