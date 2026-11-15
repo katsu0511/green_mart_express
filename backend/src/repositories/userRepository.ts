@@ -1,5 +1,6 @@
 import type { DateString } from '@/types/date.js';
 import prisma from '@/lib/prisma.js';
+import { dateStringToDate } from '@/lib/dateConvert.js';
 
 type CreateUserData = {
   name: string;
@@ -37,7 +38,7 @@ export const createUser = (data: CreateUserData) => {
   return prisma.user.create({
     data: {
       name: data.name,
-      birthDate: new Date(`${data.birthDate}T00:00:00.000Z`),
+      birthDate: dateStringToDate(data.birthDate),
       email: data.email,
       passwordHash: data.passwordHash,
     },
