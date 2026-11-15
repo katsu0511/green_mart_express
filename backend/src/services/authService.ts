@@ -1,19 +1,26 @@
 import type { AppUser } from '@/types/user.js';
 import { findUserById, findUserByEmail, createUser } from '@/repositories/userRepository.js';
 import { AppError } from '@/lib/appError.js';
+import { dateToDateString, dateToDateTimeString } from '@/lib/dateConvert.js';
 import type { User as AuthUser } from '@/lib/generated/prisma/client.js';
 import bcrypt from 'bcrypt';
 import { generateToken } from '@/lib/jwt.js';
 import type { SignupInput } from '@/types/signupData.js';
 
-export const getMe = async (userId: number) => {
-  const user: AppUser | null = await findUserById(userId);
+export const getMe = async (userId: number): Promise<AppUser> => {
+  const authUser = await findUserById(userId);
 
-  if (!user) {
+  if (!authUser) {
     throw new AppError(404, 'User not found');
   }
 
-  return user;
+  const appUser: AppUser = {
+    ...authUser,
+    birthDate: dateToDateString(authUser.birthDate),
+    createdAt: dateToDateTimeString(authUser.createdAt),
+  };
+
+  return appUser;
 };
 
 export const login = async (email: string, password: string) => {
@@ -34,9 +41,9 @@ export const login = async (email: string, password: string) => {
     email: authUser.email,
     name: authUser.name,
     address: authUser.address,
-    birthDate: authUser.birthDate,
+    birthDate: dateToDateString(authUser.birthDate),
     role: authUser.role,
-    createdAt: authUser.createdAt
+    createdAt: dateToDateTimeString(authUser.createdAt),
   };
   const token: string = generateToken(authUser.id);
   return { user: appUser, token };
@@ -51,7 +58,17 @@ export const signup = async (input: SignupInput) => {
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-  const user: AppUser = await createUser({ name, birthDate, email, passwordHash });
-  const token: string = generateToken(user.id);
-  return { user, token };
+  const authUser = await createUser({ name, birthDate, email, passwordHash });
+
+  const appUser: AppUser = {
+    id: authUser.id,
+    email: authUser.email,
+    name: authUser.name,
+    address: authUser.address,
+    birthDate: dateToDateString(authUser.birthDate),
+    role: authUser.role,
+    createdAt: dateToDateTimeString(authUser.createdAt),
+  };
+  const token: string = generateToken(authUser.id);
+  return { user: appUser, token };
 };
