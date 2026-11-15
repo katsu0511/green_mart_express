@@ -1,4 +1,7 @@
 import * as adminRepository from '@/repositories/adminRepository.js';
+import type { Category } from '@/lib/generated/prisma/client.js';
+import type { Product } from '@/types/product.js';
+import { dateToDateTimeString } from '@/lib/dateConvert.js';
 import { AppError } from '@/lib/appError.js';
 import { findProductById } from '@/repositories/productRepository.js';
 
@@ -23,9 +26,23 @@ export const getDashboard = async () => {
   }
 };
 
+export const createCategory = async (name: string, slug: string): Promise<Category> => {
+  try {
+    return await adminRepository.createCategory(name, slug);
+  } catch (error) {
+    throw new Error('Failed to create category');
+  }
+};
+
 export const addStock = async (productId: number, quantity: number) => {
   try {
-    return await adminRepository.updateStock(productId, quantity);
+    const updatedProduct = await adminRepository.updateStock(productId, quantity);
+    const product: Product = {
+      ...updatedProduct,
+      createdAt: dateToDateTimeString(updatedProduct.createdAt),
+      updatedAt: dateToDateTimeString(updatedProduct.updatedAt),
+    };
+    return product;
   } catch (error) {
     if (error instanceof AppError && error.statusCode === 404) {
       throw new AppError(404, 'Product not found');
@@ -42,7 +59,13 @@ export const createProduct = async (categoryId: number, name: string, descriptio
   }
 
   try {
-    return await adminRepository.createProduct({ categoryId, name, description, price, imageUrl, stock });
+    const newProduct = await adminRepository.createProduct({ categoryId, name, description, price, imageUrl, stock });
+    const product: Product = {
+      ...newProduct,
+      createdAt: dateToDateTimeString(newProduct.createdAt),
+      updatedAt: dateToDateTimeString(newProduct.updatedAt),
+    };
+    return product;
   } catch (error) {
     throw new Error('Failed to create product');
   }
@@ -62,7 +85,13 @@ export const updateProduct = async (productId: number, categoryId: number, name:
   }
 
   try {
-    return await adminRepository.updateProduct({ productId, categoryId, name, description, price, imageUrl });
+    const updatedProduct = await adminRepository.updateProduct({ productId, categoryId, name, description, price, imageUrl });
+    const product: Product = {
+      ...updatedProduct,
+      createdAt: dateToDateTimeString(updatedProduct.createdAt),
+      updatedAt: dateToDateTimeString(updatedProduct.updatedAt),
+    };
+    return product;
   } catch (error) {
     throw new Error('Failed to update product');
   }
@@ -76,7 +105,7 @@ export const deleteProduct = async (productId: number) => {
   }
 
   try {
-    return await adminRepository.deleteProduct(productId);
+    adminRepository.deleteProduct(productId);
   } catch (error) {
     throw new Error('Failed to delete product');
   }

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { dateSchema } from '@/validations/dateValidation.js';
 
 export const loginSchema = z.object({
   email: z.email(),
@@ -12,6 +13,7 @@ export const loginSchema = z.object({
 export const signupSchema = z.object({
   name: z.string().min(1),
   email: z.email(),
+  birthDate: dateSchema,
   password: z
     .string()
     .min(8, 'Password must be at least 8 characters')

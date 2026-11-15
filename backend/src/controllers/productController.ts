@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import type { Product } from '@/lib/generated/prisma/client.js';
+import type { Product } from '@/types/product.js';
 import * as productService from '@/services/productService.js';
 import type { ProductWithCategory } from '@/types/product.js';
 

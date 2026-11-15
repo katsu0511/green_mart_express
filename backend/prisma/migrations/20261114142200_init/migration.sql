@@ -5,6 +5,7 @@ CREATE TABLE `users` (
     `passwordHash` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `address` VARCHAR(191) NOT NULL DEFAULT '',
+    `birthDate` DATE NOT NULL,
     `role` ENUM('CUSTOMER', 'ADMIN') NOT NULL DEFAULT 'CUSTOMER',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 

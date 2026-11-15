@@ -11,10 +11,11 @@ type Props = {
 export default function Input({ label, type, value, onChange }: Props) {
   return <TextField
     id={label}
-    label={label}
+    label={label === 'Birth Date' ? '' : label}
     type={type}
     value={value}
     variant='outlined'
+    sx={{ width: '200px' }}
     slotProps={{
       htmlInput: {
         step: type === 'number' ? 1 : undefined,

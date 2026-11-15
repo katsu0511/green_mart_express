@@ -36,7 +36,7 @@ export default function AdminCategoryAddPage() {
       return;
     }
 
-    const res = await fetch(`${API_BASE_URL}/api/categories`, {
+    const res = await fetch(`${API_BASE_URL}/api/admin/categories`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

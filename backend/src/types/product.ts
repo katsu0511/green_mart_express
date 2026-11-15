@@ -1,4 +1,17 @@
+import type { DateTimeString } from '@/types/date.js';
 import type { Category } from '@/lib/generated/prisma/client.js';
+
+export type Product = {
+  id: number
+  categoryId: number
+  name: string
+  description: string
+  price: number
+  imageUrl: string
+  stock: number
+  createdAt: DateTimeString
+  updatedAt: DateTimeString
+};
 
 export type ProductInfo = {
   id: number
@@ -14,7 +27,7 @@ export type ProductWithCategory = {
   price: number
   imageUrl: string
   stock: number
-  createdAt: Date
-  updatedAt: Date
+  createdAt: DateTimeString
+  updatedAt: DateTimeString
   category: Category
 };

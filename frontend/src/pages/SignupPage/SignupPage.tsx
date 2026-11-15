@@ -10,6 +10,7 @@ import PageLink from '@/components/Atoms/PageLink/PageLink';
 
 export default function SignupPage() {
   const [name, setName] = useState<string>('');
+  const [birthDate, setBirthDate] = useState<string>('');
   const [hasClicked, setHasClicked] = useState<boolean>(false);
   const { email, setEmail, password, setPassword, passwordConfirm, setPasswordConfirm, error, setError, navigate } = useForm();
   const { refreshAuth } = useAuth();
@@ -19,13 +20,43 @@ export default function SignupPage() {
     setHasClicked(true);
     setError('');
 
+    if (!name.trim()) {
+      setError('Please enter your name');
+      setHasClicked(false);
+      return;
+    }
+
+    if (!birthDate.trim()) {
+      setError('Please enter your birth date');
+      setHasClicked(false);
+      return;
+    }
+
+    if (!email.trim()) {
+      setError('Please enter your email');
+      setHasClicked(false);
+      return;
+    }
+
+    if (!password.trim()) {
+      setError('Please enter your password');
+      setHasClicked(false);
+      return;
+    }
+
+    if (!passwordConfirm.trim()) {
+      setError('Please enter password confirmation');
+      setHasClicked(false);
+      return;
+    }
+
     if (password !== passwordConfirm) {
       setError('Password doesn\'t match');
       setHasClicked(false);
       return;
     }
 
-    const error = await handleSignup(name, email, password);
+    const error = await handleSignup(name, birthDate, email, password);
 
     if (error) {
       setError(error.message);
@@ -43,6 +74,7 @@ export default function SignupPage() {
       <form className='signup-form' onSubmit={signup}>
         <Heading title='Signup' />
         <FormInput label='Name' type='text' value={name} onChange={(e) => setName(e.target.value)} />
+        <FormInput label='Birth Date' type='date' value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
         <FormInput label='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
         <FormInput label='Password' type='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
         <FormInput label='Password Confirm' type='password' value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)}/>

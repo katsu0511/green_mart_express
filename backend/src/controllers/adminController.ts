@@ -1,9 +1,16 @@
 import type { Request, Response } from 'express';
 import * as adminService from '@/services/adminService.js';
+import type { Category } from '@/lib/generated/prisma/client.js';
 
 export const getDashboard = async (_req: Request, res: Response) => {
   const dashboardInfo = await adminService.getDashboard();
   res.status(200).json(dashboardInfo);
+};
+
+export const createCategory = async (req: Request, res: Response) => {
+  const { name, slug } = req.body;
+  const category: Category = await adminService.createCategory(name, slug);
+  res.status(201).json(category);
 };
 
 export const addStock = async (req: Request, res: Response) => {

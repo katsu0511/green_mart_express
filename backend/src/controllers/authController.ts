@@ -1,6 +1,7 @@
-import type { Request, Response } from 'express';
+import type { Request, Response, RequestHandler } from 'express';
 import type { AppUser } from '@/types/user.js';
 import * as authService from '@/services/authService.js';
+import type { SignupInput } from '@/types/signupData.js';
 
 export const getMe = async (req: Request, res: Response) => {
   const user: AppUser = await authService.getMe(req.userId);
@@ -19,9 +20,8 @@ export const logout = async (_req: Request, res: Response) => {
   res.status(204).send();
 };
 
-export const signup = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  const { user, token } = await authService.signup(name, email, password);
+export const signup: RequestHandler<{}, {}, SignupInput> = async (req, res) => {
+  const { user, token } = await authService.signup(req.body);
   setAuthCookie(res, token);
   res.status(201).json(user);
 };

@@ -1,8 +1,15 @@
-import type { AppUser } from '@/types/user.js';
+import type { DateString } from '@/types/date.js';
 import prisma from '@/lib/prisma.js';
-import type { User as AuthUser } from '@/lib/generated/prisma/client.js';
+import { dateStringToDate } from '@/lib/dateConvert.js';
 
-export const findUserById = (userId: number): Promise<AppUser | null> => {
+type CreateUserData = {
+  name: string;
+  birthDate: DateString;
+  email: string;
+  passwordHash: string;
+};
+
+export const findUserById = (userId: number) => {
   return prisma.user.findUnique({
     where: {
       id: userId,
@@ -12,13 +19,14 @@ export const findUserById = (userId: number): Promise<AppUser | null> => {
       email: true,
       name: true,
       address: true,
+      birthDate: true,
       role: true,
       createdAt: true,
     },
   });
 };
 
-export const findUserByEmail = (email: string): Promise<AuthUser | null> => {
+export const findUserByEmail = (email: string) => {
   return prisma.user.findUnique({
     where: {
       email,
@@ -26,14 +34,20 @@ export const findUserByEmail = (email: string): Promise<AuthUser | null> => {
   });
 };
 
-export const createUser = (data: {name: string, email: string, passwordHash: string}): Promise<AppUser> => {
+export const createUser = (data: CreateUserData) => {
   return prisma.user.create({
-    data,
+    data: {
+      name: data.name,
+      birthDate: dateStringToDate(data.birthDate),
+      email: data.email,
+      passwordHash: data.passwordHash,
+    },
     select: {
       id: true,
       email: true,
       name: true,
       address: true,
+      birthDate: true,
       role: true,
       createdAt: true,
     },
