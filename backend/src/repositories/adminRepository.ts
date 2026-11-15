@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma.js';
 import type { OrderMonth } from '@/types/order.js';
+import type { Category } from '@/lib/generated/prisma/client.js';
 import { AppError } from '@/lib/appError.js';
 
 export const getMonthlySales = (startDate: Date, endDate: Date) => {
@@ -40,6 +41,15 @@ export const getOrderMonths = () => {
     GROUP BY year, month
     ORDER BY year, month
   `;
+};
+
+export const createCategory = (name: string, slug: string): Promise<Category> => {
+  return prisma.category.create({
+    data: {
+      name,
+      slug,
+    },
+  });
 };
 
 export const updateStock = (productId: number, quantity: number) => {
