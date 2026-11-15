@@ -101,7 +101,7 @@ export const updateProduct = (data: {productId: number, categoryId: number, name
 };
 
 export const deleteProduct = (productId: number) => {
-  return prisma.product.delete({
+  prisma.product.delete({
     where: { id: productId },
   });
 };
