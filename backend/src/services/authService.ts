@@ -33,6 +33,7 @@ export const login = async (email: string, password: string) => {
     email: authUser.email,
     name: authUser.name,
     address: authUser.address,
+    birthDate: authUser.birthDate,
     role: authUser.role,
     createdAt: authUser.createdAt
   };
@@ -40,7 +41,7 @@ export const login = async (email: string, password: string) => {
   return { user: appUser, token };
 };
 
-export const signup = async (name: string, email: string, password: string) => {
+export const signup = async (name: string, birthDate: string, email: string, password: string) => {
   const existingUser: AuthUser | null = await findUserByEmail(email);
 
   if (existingUser) {
@@ -48,7 +49,7 @@ export const signup = async (name: string, email: string, password: string) => {
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
-  const user: AppUser = await createUser({ name, email, passwordHash });
+  const user: AppUser = await createUser({ name, birthDate, email, passwordHash });
   const token: string = generateToken(user.id);
   return { user, token };
 };
